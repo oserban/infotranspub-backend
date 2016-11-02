@@ -6,3 +6,5 @@ Include componentele care ruleaza pe server:
 * route search
 * timetable search
 * management console
+* user session
+
