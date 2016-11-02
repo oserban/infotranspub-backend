@@ -8,3 +8,4 @@ Include componentele care ruleaza pe server:
 * management console
 * user session
 
+Mare parte din codul de back-end va fi Java
