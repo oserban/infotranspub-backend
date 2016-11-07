@@ -38,4 +38,19 @@ sudo adduser <user>  -g infotranspub_main -G infotranspub_web,infotranspub_api,i
 # Add gcc compiler
 yum -y install gcc
 
+# Postgres
+yum -y install postgresql postgresql.x86_64
+yum -y install  postgresql-jdbc
+yum install postgresql-server postgresql-contrib
+postgresql-setup initdb
+
+
+systemctl start postgresql
+systemctl enable postgresql
+
+# With the user postgres
+
+createdb infotranspub
+psql -d infotranspub
+
 

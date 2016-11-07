@@ -33,9 +33,11 @@ public class SearchDelegate
 		List<Object>  list = new ArrayList<Object>();
 		Oras oras = new Oras();
 		oras.setName("Bucuresti");
+		oras.setId(1);
 		list.add(oras);
 		oras = new Oras();
 		oras.setName("Iasi");
+		oras.setId(2);
 		list.add(oras);
 
 		
