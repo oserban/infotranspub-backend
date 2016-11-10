@@ -21,6 +21,7 @@ public class ColumnPool {
 		this.pool.put(FareRules.FILE_NAME,new FareRulesColumns(null,null));
 		this.pool.put(FeedInfo.FILE_NAME,new FeedInfoColumns(null,null));
 		this.pool.put(Frequencies.FILE_NAME,new FrequenciesColumns(null,null));
+		this.pool.put(Routes.FILE_NAME,new RoutesColumns(null,null));
 	}
 
 	public SQLColumns getColumns(String fileName){
