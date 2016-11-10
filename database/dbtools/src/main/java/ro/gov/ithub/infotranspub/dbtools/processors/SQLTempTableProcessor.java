@@ -9,7 +9,7 @@ import java.lang.String;
 import java.lang.StringBuilder;
 import java.util.List;
 import java.util.ArrayList;
-
+import org.apache.commons.lang3.StringUtils;
 
 public class SQLTempTableProcessor implements GenericProcessor{
 
@@ -67,7 +67,8 @@ public class SQLTempTableProcessor implements GenericProcessor{
 		
 	    	inserter = new StringBuilder("INSERT INTO TMP_"+this.tableRadix + "(" );
             	header = line.split(",");
-		inserter.append(String.join(",", header));
+		//inserter.append(String.join(",", header));
+		inserter.append(StringUtils.join(header,","));
 		inserter.append(") VALUES ");
 	}
 
@@ -92,16 +93,17 @@ public class SQLTempTableProcessor implements GenericProcessor{
 		}
 		
 		StringBuilder val = new StringBuilder("('");
-		val.append(String.join("','",cells));
+		//val.append(String.join("','",cells));
+		val.append(StringUtils.join(cells,"','"));
 		val.append("')");
-		// - System.out.println(val.toString());
+		//System.out.println(val.toString());
 		sqlQuery.append(val.toString());
 		sqlQuery.append("\n");
 
                 if ((this.lineCount > 0) && (((this.lineCount+1)%this.cnt) == 0)){ 
 		
 			try {
-				// System.out.println(sqlQuery.toString());
+				//System.out.println(sqlQuery.toString());
 				this.sqlStatement.executeUpdate(sqlQuery.toString());
 			    } catch (SQLException e ) {
 				e.printStackTrace();

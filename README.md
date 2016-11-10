@@ -54,3 +54,12 @@ createdb infotranspub
 psql -d infotranspub
 
 
+Orice fisier GTFS de pe http://transitfeeds.com/feeds poate fi importat in baza
+Pentru moment, fisierul de import  trebuie sa se numeasca sfmta.gtfs
+
+Pentru import fisier GTFS
+
+cd infotranspub-backend 
+cd database/dbtools
+java -cp ./target/dbtools-1.0-SNAPSHOT.jar  ro.gov.ithub.infotranspub.dbtools.app.GTFSFileImportApp  
+
