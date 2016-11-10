@@ -18,6 +18,7 @@ public class ColumnPool {
 		this.pool.put(Calendar.FILE_NAME,new CalendarColumns(null,null));
 		this.pool.put(CalendarDates.FILE_NAME,new CalendarDatesColumns(null,null));
 		this.pool.put(FareAttributes.FILE_NAME,new FareAttributesColumns(null,null));
+		this.pool.put(FareRules.FILE_NAME,new FareRulesColumns(null,null));
 	}
 
 	public SQLColumns getColumns(String fileName){

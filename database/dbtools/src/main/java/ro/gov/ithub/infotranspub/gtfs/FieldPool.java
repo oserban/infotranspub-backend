@@ -18,6 +18,7 @@ public class FieldPool {
 		this.pool.put(Calendar.FILE_NAME,new CalendarFields());
 		this.pool.put(CalendarDates.FILE_NAME,new CalendarDatesFields());
 		this.pool.put(FareAttributes.FILE_NAME,new FareAttributesFields());
+		this.pool.put(FareRules.FILE_NAME,new FareRulesFields());
 	}
 
 	public GTFSFields getFields(String fileName){
