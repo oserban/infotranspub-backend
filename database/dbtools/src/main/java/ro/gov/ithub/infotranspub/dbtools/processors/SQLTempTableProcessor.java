@@ -78,7 +78,7 @@ public class SQLTempTableProcessor implements GenericProcessor{
 		if (cells.length < header.length){
 			List<String> newCells = new ArrayList<String>();
 			for (String cell:cells){
-				newCells.add(cell);
+				newCells.add(cell.trim());
 			}
 			while (newCells.size() < header.length){
 				newCells.add("");
