@@ -22,6 +22,7 @@ public class FieldPool {
 		this.pool.put(FeedInfo.FILE_NAME,new FeedInfoFields());
 		this.pool.put(Frequencies.FILE_NAME,new FrequenciesFields());
 		this.pool.put(Routes.FILE_NAME,new RoutesFields());
+		this.pool.put(Shapes.FILE_NAME,new ShapesFields());
 	}
 
 	public GTFSFields getFields(String fileName){
