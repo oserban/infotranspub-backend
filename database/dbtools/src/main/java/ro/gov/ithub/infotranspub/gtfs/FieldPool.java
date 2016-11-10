@@ -20,6 +20,7 @@ public class FieldPool {
 		this.pool.put(FareAttributes.FILE_NAME,new FareAttributesFields());
 		this.pool.put(FareRules.FILE_NAME,new FareRulesFields());
 		this.pool.put(FeedInfo.FILE_NAME,new FeedInfoFields());
+		this.pool.put(Frequencies.FILE_NAME,new FrequenciesFields());
 	}
 
 	public GTFSFields getFields(String fileName){

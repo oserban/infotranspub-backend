@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.io.IOException;
 import java.lang.String;
 import java.lang.StringBuilder;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class SQLTempTableProcessor implements GenericProcessor{
@@ -50,7 +52,6 @@ public class SQLTempTableProcessor implements GenericProcessor{
 
 	public void processHeader(String line){
 		
-		System.out.println("process header");
 		String  tableStructure = this.metaPool.getColumns(entryName).getTableStructure();
 		StringBuilder createTable = new StringBuilder("CREATE TABLE TMP_" + this.tableRadix + tableStructure);
 		 
@@ -71,8 +72,18 @@ public class SQLTempTableProcessor implements GenericProcessor{
 	}
 
 	public void processBody(String line){
-		System.out.println("process body");
 		String[] cells = line.replaceAll("'","''").split(",");
+	
+		if (cells.length < header.length){
+			List<String> newCells = new ArrayList<String>();
+			for (String cell:cells){
+				newCells.add(cell);
+			}
+			while (newCells.size() < header.length){
+				newCells.add("");
+			}
+			cells = (String[])newCells.toArray(cells);
+		}
 		if ((this.lineCount % this.cnt) == 0){
 	        	sqlQuery = new StringBuilder(inserter.toString());
 		}
@@ -84,12 +95,13 @@ public class SQLTempTableProcessor implements GenericProcessor{
 		val.append(String.join("','",cells));
 		val.append("')");
 		System.out.println(val.toString());
+		sqlQuery.append(val.toString());
 		sqlQuery.append("\n");
-		sqlQuery.append(val.toString());	
 
                 if ((this.lineCount > 0) && (((this.lineCount+1)%this.cnt) == 0)){ 
 		
 			try {
+				System.out.println(sqlQuery.toString());
 				this.sqlStatement.executeUpdate(sqlQuery.toString());
 			    } catch (SQLException e ) {
 				e.printStackTrace();
@@ -99,9 +111,9 @@ public class SQLTempTableProcessor implements GenericProcessor{
 	}
 
 	public void processTail(){
-		System.out.println("process tail");
                 if ((this.lineCount > 0) && (((this.lineCount+1) % this.cnt) != 0)){ 
 			try {
+				System.out.println(sqlQuery.toString());
 				this.sqlStatement.executeUpdate(sqlQuery.toString());
 			    } catch (SQLException e ) {
 				e.printStackTrace();

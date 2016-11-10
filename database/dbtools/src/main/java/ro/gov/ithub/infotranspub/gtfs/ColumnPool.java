@@ -20,6 +20,7 @@ public class ColumnPool {
 		this.pool.put(FareAttributes.FILE_NAME,new FareAttributesColumns(null,null));
 		this.pool.put(FareRules.FILE_NAME,new FareRulesColumns(null,null));
 		this.pool.put(FeedInfo.FILE_NAME,new FeedInfoColumns(null,null));
+		this.pool.put(Frequencies.FILE_NAME,new FrequenciesColumns(null,null));
 	}
 
 	public SQLColumns getColumns(String fileName){
