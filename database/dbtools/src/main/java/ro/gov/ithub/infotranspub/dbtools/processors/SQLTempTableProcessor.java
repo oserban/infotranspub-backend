@@ -94,14 +94,14 @@ public class SQLTempTableProcessor implements GenericProcessor{
 		StringBuilder val = new StringBuilder("('");
 		val.append(String.join("','",cells));
 		val.append("')");
-		System.out.println(val.toString());
+		// - System.out.println(val.toString());
 		sqlQuery.append(val.toString());
 		sqlQuery.append("\n");
 
                 if ((this.lineCount > 0) && (((this.lineCount+1)%this.cnt) == 0)){ 
 		
 			try {
-				System.out.println(sqlQuery.toString());
+				// System.out.println(sqlQuery.toString());
 				this.sqlStatement.executeUpdate(sqlQuery.toString());
 			    } catch (SQLException e ) {
 				e.printStackTrace();
@@ -113,7 +113,7 @@ public class SQLTempTableProcessor implements GenericProcessor{
 	public void processTail(){
                 if ((this.lineCount > 0) && (((this.lineCount+1) % this.cnt) != 0)){ 
 			try {
-				System.out.println(sqlQuery.toString());
+				//System.out.println(sqlQuery.toString());
 				this.sqlStatement.executeUpdate(sqlQuery.toString());
 			    } catch (SQLException e ) {
 				e.printStackTrace();

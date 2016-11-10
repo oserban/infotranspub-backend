@@ -23,6 +23,7 @@ public class ColumnPool {
 		this.pool.put(Frequencies.FILE_NAME,new FrequenciesColumns(null,null));
 		this.pool.put(Routes.FILE_NAME,new RoutesColumns(null,null));
 		this.pool.put(Shapes.FILE_NAME,new ShapesColumns(null,null));
+		this.pool.put(StopTimes.FILE_NAME,new StopTimesColumns(null,null));
 	}
 
 	public SQLColumns getColumns(String fileName){

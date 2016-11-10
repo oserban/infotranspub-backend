@@ -23,6 +23,7 @@ public class FieldPool {
 		this.pool.put(Frequencies.FILE_NAME,new FrequenciesFields());
 		this.pool.put(Routes.FILE_NAME,new RoutesFields());
 		this.pool.put(Shapes.FILE_NAME,new ShapesFields());
+		this.pool.put(StopTimes.FILE_NAME,new StopTimesFields());
 	}
 
 	public GTFSFields getFields(String fileName){
