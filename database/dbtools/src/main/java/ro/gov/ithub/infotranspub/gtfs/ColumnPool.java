@@ -15,6 +15,7 @@ public class ColumnPool {
 	private void createPool(){
 		this.pool.put(Agency.FILE_NAME,new AgencyColumns(null,null));
 		this.pool.put(Stops.FILE_NAME,new StopsColumns(null,null));
+		this.pool.put(Calendar.FILE_NAME,new CalendarColumns(null,null));
 	}
 
 	public SQLColumns getColumns(String fileName){

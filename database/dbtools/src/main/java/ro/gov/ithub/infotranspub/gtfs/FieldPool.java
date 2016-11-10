@@ -15,6 +15,7 @@ public class FieldPool {
 	private void createPool(){
 		this.pool.put(Agency.FILE_NAME,new AgencyFields());
 		this.pool.put(Stops.FILE_NAME,new StopsFields());
+		this.pool.put(Calendar.FILE_NAME,new CalendarFields());
 	}
 
 	public GTFSFields getFields(String fileName){
