@@ -24,6 +24,8 @@ public class ColumnPool {
 		this.pool.put(Routes.FILE_NAME,new RoutesColumns(null,null));
 		this.pool.put(Shapes.FILE_NAME,new ShapesColumns(null,null));
 		this.pool.put(StopTimes.FILE_NAME,new StopTimesColumns(null,null));
+		this.pool.put(Trips.FILE_NAME,new TripsColumns(null,null));
+		this.pool.put(Transfers.FILE_NAME,new TransfersColumns(null,null));
 	}
 
 	public SQLColumns getColumns(String fileName){
