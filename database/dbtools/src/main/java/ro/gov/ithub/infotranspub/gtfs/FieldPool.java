@@ -24,6 +24,8 @@ public class FieldPool {
 		this.pool.put(Routes.FILE_NAME,new RoutesFields());
 		this.pool.put(Shapes.FILE_NAME,new ShapesFields());
 		this.pool.put(StopTimes.FILE_NAME,new StopTimesFields());
+		this.pool.put(Trips.FILE_NAME,new TripsFields());
+		this.pool.put(Transfers.FILE_NAME,new TransfersFields());
 	}
 
 	public GTFSFields getFields(String fileName){
