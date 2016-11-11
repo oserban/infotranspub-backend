@@ -4,6 +4,7 @@ import java.util.Properties;
 
 import org.restexpress.RestExpress;
 import org.restexpress.util.Environment;
+import ro.gov.ithub.cities.CityController;
 
 public class Configuration
 extends Environment
@@ -19,6 +20,7 @@ extends Environment
 	private int executorThreadPoolSize;
 
 	private SampleController sampleController;
+	private CityController cityController;
 
 	@Override
 	protected void fillValues(Properties p)
@@ -29,9 +31,9 @@ extends Environment
 		initialize();
 	}
 
-	private void initialize()
-	{
+	private void initialize() {
 		sampleController = new SampleController();
+		cityController = new CityController();
 	}
 
 	public int getPort()
@@ -52,5 +54,9 @@ extends Environment
 	public SampleController getSampleController()
 	{
 		return sampleController;
+	}
+
+	public CityController getCityController() {
+		return cityController;
 	}
 }
