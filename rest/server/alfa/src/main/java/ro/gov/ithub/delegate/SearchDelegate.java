@@ -1,15 +1,10 @@
 package ro.gov.ithub.delegate;
 
-import ro.gov.ithub.Oras;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
-import java.util.Iterator;
-
 import org.restexpress.Request;
 import org.restexpress.Response;
+import ro.gov.ithub.cities.City;
+
+import java.util.*;
 
 public class SearchDelegate
 {
@@ -30,17 +25,10 @@ public class SearchDelegate
 		 System.out.print("key is: "+ mentry.getKey() + " & Value is: ");
 		 System.out.println(mentry.getValue());
 	      }
-		List<Object>  list = new ArrayList<Object>();
-		Oras oras = new Oras();
-		oras.setName("Bucuresti");
-		oras.setId(1);
-		list.add(oras);
-		oras = new Oras();
-		oras.setName("Iasi");
-		oras.setId(2);
-		list.add(oras);
 
-		
+		List<Object>  list = new ArrayList<>();
+		list.add(new City(1, "Bucuresti"));
+		list.add(new City(2, "Iasi"));
 		return list;
 	}
 }
