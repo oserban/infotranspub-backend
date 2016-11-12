@@ -58,7 +58,6 @@ public class GTFSCSVFileProcessor implements GenericProcessor{
 		if (skipIt){
 			return ;
 		}
-		System.out.println("null ?");
 		this.tempTableProcessor.processTail();
 	}
 }

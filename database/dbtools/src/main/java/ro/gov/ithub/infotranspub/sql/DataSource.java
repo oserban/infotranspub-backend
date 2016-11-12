@@ -18,10 +18,10 @@ public class DataSource {
         ds.setUrl("jdbc:postgresql://localhost/infotranspub");
        
      // the settings below are optional -- dbcp can work with defaults
-        //ds.setMinIdle(5);
-        //--ds.setMaxActive(20);
-        //ds.setMaxIdle(20);
-        //ds.setMaxOpenPreparedStatements(180);
+     ds.setMinIdle(1);// 5
+     ds.setMaxActive(1); // 10
+     ds.setMaxIdle(1); // 20
+     ds.setMaxOpenPreparedStatements(1); // 180
 
     }
 
@@ -38,4 +38,7 @@ public class DataSource {
         return this.ds.getConnection();
     }
 
+    public void close() throws SQLException {
+        this.ds.close();
+    }
 }

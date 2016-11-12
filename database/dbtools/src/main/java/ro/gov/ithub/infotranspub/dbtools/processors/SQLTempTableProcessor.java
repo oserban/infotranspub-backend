@@ -55,14 +55,13 @@ public class SQLTempTableProcessor implements GenericProcessor{
 		String  tableStructure = this.metaPool.getColumns(entryName).getTableStructure();
 		StringBuilder createTable = new StringBuilder("CREATE TABLE TMP_" + this.tableRadix + tableStructure);
 		 
-		System.out.println(createTable.toString());
 		try {
+			System.out.println(createTable.toString());
 			this.sqlStatement.executeUpdate(createTable.toString());
 		} catch ( SQLException e){
 			e.printStackTrace();
 		}
 		System.out.println(this.entryName);
-		System.out.println(line);
 
 		
 	    	inserter = new StringBuilder("INSERT INTO TMP_"+this.tableRadix + "(" );
@@ -73,8 +72,9 @@ public class SQLTempTableProcessor implements GenericProcessor{
 	}
 
 	public void processBody(String line){
-		String[] cells = line.replaceAll("'","''").split(",");
-	
+		String[] cells = evenQuoteSplit(line.replaceAll("'","''")); //.split(",");
+	//	if (cells.length > 0)
+	//		return;	
 		if (cells.length < header.length){
 			List<String> newCells = new ArrayList<String>();
 			for (String cell:cells){
@@ -96,7 +96,6 @@ public class SQLTempTableProcessor implements GenericProcessor{
 		//val.append(String.join("','",cells));
 		val.append(StringUtils.join(cells,"','"));
 		val.append("')");
-		//System.out.println(val.toString());
 		sqlQuery.append(val.toString());
 		sqlQuery.append("\n");
 
@@ -113,14 +112,71 @@ public class SQLTempTableProcessor implements GenericProcessor{
 	}
 
 	public void processTail(){
+//		if (this.lineCount >=0)
+//			return;
                 if ((this.lineCount > 0) && (((this.lineCount+1) % this.cnt) != 0)){ 
 			try {
-				//System.out.println(sqlQuery.toString());
 				this.sqlStatement.executeUpdate(sqlQuery.toString());
 			    } catch (SQLException e ) {
 				e.printStackTrace();
 			    }
                } 
+		
+			try {
+				this.sqlStatement.close();
+				this.sqlConnection.close();
+			//	DataSource.getInstance().close();
+			    } catch (SQLException e ) {
+				e.printStackTrace();
+			    }
+	}
+
+	public String[]  evenQuoteSplit(String line){
+/*
+		String inputString = line;
+		    char quote = '"';
+		    List<String> csvList = new ArrayList<String>();
+		    boolean inQuote = false;
+		    int lastStart = 0;
+		    for (int i = 0; i < inputString.length(); i++) {
+			if ((i + 1) == inputString.length()) {
+			    //if this is the last character
+			    csvList.add(inputString.substring(lastStart, i + 1));
+			}
+			if (inputString.charAt(i) == quote) {
+			    //if the character is quote
+			    if (inQuote) {
+				inQuote = false;
+				continue; //escape
+			    }
+			    inQuote = true;
+			    continue;
+			}
+			if (inputString.charAt(i) == ',') {
+			    if (inQuote) continue;
+			    csvList.add(inputString.substring(lastStart, i));
+			    lastStart = i + 1;
+			}
+		    }
+		return csvList.toArray(new String[0]);
+
+*/
+
+
+		List<String> result = new ArrayList<String>();
+		int start = 0;
+		boolean inQuotes = false;
+		for (int current = 0; current < line.length(); current++) {
+		    if (line.charAt(current) == '\"') inQuotes = !inQuotes; // toggle state
+		    boolean atLastChar = (current == line.length() - 1);
+		    if(atLastChar) result.add(line.substring(start));
+		    else if (line.charAt(current) == ',' && !inQuotes) {
+			result.add(line.substring(start, current));
+			start = current + 1;
+		    }
+		}
+		return result.toArray(new String[0]);
+
 	}
 
 }
