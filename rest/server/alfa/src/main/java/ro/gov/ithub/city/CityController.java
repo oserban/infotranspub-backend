@@ -1,4 +1,4 @@
-package ro.gov.ithub.cities;
+package ro.gov.ithub.city;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ public class CityController extends BaseController<City> {
 	@Autowired
 	private CityService cityService;
 
-	@RequestMapping("/cities")
+	@RequestMapping("/city")
 	public List<City> getAllCities() {
 		return cityService.getHardcodedCities();
 	}

@@ -2,7 +2,7 @@ package ro.gov.ithub.delegate;
 
 import org.restexpress.Request;
 import org.restexpress.Response;
-import ro.gov.ithub.cities.City;
+import ro.gov.ithub.city.City;
 
 import java.util.*;
 

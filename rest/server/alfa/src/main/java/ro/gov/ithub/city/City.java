@@ -1,4 +1,4 @@
-package ro.gov.ithub.cities;
+package ro.gov.ithub.city;
 
 import com.google.gson.Gson;
 import lombok.Data;

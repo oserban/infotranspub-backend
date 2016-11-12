@@ -1,4 +1,4 @@
-package ro.gov.ithub.cities;
+package ro.gov.ithub.city;
 
 import java.util.List;
 
