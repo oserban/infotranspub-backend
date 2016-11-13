@@ -1,7 +1,7 @@
 package ro.gov.ithub.infotranspub.sql;
 import java.io.IOException;
 import java.sql.SQLException;
-import ro.gov.ithub.infotranspub.stoplist.ConfigProps;
+import ro.gov.ithub.infotranspub.tools.configurator.ConfigProps;
 
 import org.apache.commons.dbcp.BasicDataSource;
 
