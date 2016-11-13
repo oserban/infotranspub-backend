@@ -38,7 +38,8 @@ public class GTFSZipEntryProcessor implements GenericProcessor{
 			}
 		} catch ( IOException e){
 			e.printStackTrace();
-		}		
+		}	
+		
 		processor.processTail();		
 		return false;
 	}

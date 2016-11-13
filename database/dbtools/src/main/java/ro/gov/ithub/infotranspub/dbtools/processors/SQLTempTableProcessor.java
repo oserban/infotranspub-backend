@@ -1,6 +1,9 @@
 package ro.gov.ithub.infotranspub.dbtools.processors;
 import ro.gov.ithub.infotranspub.gtfs.MetaPool;
 import ro.gov.ithub.infotranspub.sql.DataSource;
+import ro.gov.ithub.infotranspub.sql.DataSource;
+import ro.gov.ithub.infotranspub.dbtools.text.CSVLineTool;
+
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.SQLException;
@@ -9,11 +12,16 @@ import java.lang.String;
 import java.lang.StringBuilder;
 import java.util.List;
 import java.util.ArrayList;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class SQLTempTableProcessor implements GenericProcessor{
 
-	private int cnt = 500;
+	private static final int BULK_INSERT_SIZE = 500;
+	private static final String CREATE_TEMP_TABLE_PREFIX="CREATE TABLE TMP_";
+	private static final String INSERT_TEMP_TABLE_PREFIX="INSERT INTO TMP_";
+	private static final String SQL_COLUMN_SEPARATOR=",";
+
 	private int lineCount = 0;
     	private String []  header = null;
 	private String entryName = null;
@@ -22,23 +30,16 @@ public class SQLTempTableProcessor implements GenericProcessor{
 	private java.sql.Connection sqlConnection = null;
 	private java.sql.Statement sqlStatement= null;	
 	private MetaPool metaPool = new MetaPool();
+
 	private StringBuilder inserter = null;
 	private StringBuilder multipleValues = null;
 	private StringBuilder sqlQuery = null;
 	
 	public SQLTempTableProcessor(String entryName) {
 		this.entryName = entryName;
-		try {
-			DataSource dataSource = DataSource.getInstance();
-			this.sqlConnection = dataSource.getConnection();
-			this.sqlStatement = sqlConnection.createStatement();
-			String[] name = entryName.split("\\.");
-			this.tableRadix = name[0];
-		} catch ( SQLException e){
-			e.printStackTrace();
-		} catch (IOException e){
-			e.printStackTrace();
-		}
+		String[] name = entryName.split("\\.");
+		this.tableRadix = name[0];
+		allocateSQLResources();
 	}
 
 	@Override
@@ -53,74 +54,109 @@ public class SQLTempTableProcessor implements GenericProcessor{
 	public void processHeader(String line){
 		
 		String  tableStructure = this.metaPool.getColumns(entryName).getTableStructure();
-		StringBuilder createTable = new StringBuilder("CREATE TABLE TMP_" + this.tableRadix + tableStructure);
+		StringBuilder createTable = new StringBuilder(SQLTempTableProcessor.CREATE_TEMP_TABLE_PREFIX + this.tableRadix + tableStructure);
 		 
 		System.out.println(createTable.toString());
-		try {
-			this.sqlStatement.executeUpdate(createTable.toString());
-		} catch ( SQLException e){
-			e.printStackTrace();
-		}
+		executeUpdate(createTable.toString());
 		System.out.println(this.entryName);
-		System.out.println(line);
 
 		
-	    	inserter = new StringBuilder("INSERT INTO TMP_"+this.tableRadix + "(" );
-            	header = line.split(",");
-		//inserter.append(String.join(",", header));
-		inserter.append(StringUtils.join(header,","));
+	    	inserter = new StringBuilder(SQLTempTableProcessor.INSERT_TEMP_TABLE_PREFIX + this.tableRadix + "(" );
+            	header = line.split(SQLTempTableProcessor.SQL_COLUMN_SEPARATOR);
+		inserter.append(StringUtils.join(header,SQLTempTableProcessor.SQL_COLUMN_SEPARATOR));
 		inserter.append(") VALUES ");
 	}
 
 	public void processBody(String line){
-		String[] cells = line.replaceAll("'","''").split(",");
-	
-		if (cells.length < header.length){
-			List<String> newCells = new ArrayList<String>();
-			for (String cell:cells){
-				newCells.add(cell.trim());
-			}
-			while (newCells.size() < header.length){
-				newCells.add("");
-			}
-			cells = (String[])newCells.toArray(cells);
-		}
-		if ((this.lineCount % this.cnt) == 0){
+		List<String> grownArray = CSVLineTool.trimElements(
+						CSVLineTool.quoteAwareSplit(
+							CSVLineTool.simpleQuoteRepeate(line)));
+		String [] cells = CSVLineTool.toStringArray(
+					CSVLineTool.growArrayList(grownArray,header.length - grownArray.size()));
+		
+		if ((this.lineCount % SQLTempTableProcessor.BULK_INSERT_SIZE) == 0){
 	        	sqlQuery = new StringBuilder(inserter.toString());
 		}
-                if ((this.lineCount % this.cnt) > 0 ){
-			sqlQuery.append(",");
+
+                if ((this.lineCount % SQLTempTableProcessor.BULK_INSERT_SIZE) > 0 ){
+			sqlQuery.append(SQLTempTableProcessor.SQL_COLUMN_SEPARATOR);
 		}
 		
-		StringBuilder val = new StringBuilder("('");
-		//val.append(String.join("','",cells));
-		val.append(StringUtils.join(cells,"','"));
-		val.append("')");
-		//System.out.println(val.toString());
-		sqlQuery.append(val.toString());
+		StringBuilder sqlValueRow = new StringBuilder("('");
+		sqlValueRow.append(StringUtils.join(cells,"','"));
+		sqlValueRow.append("')");
+
+		sqlQuery.append(sqlValueRow.toString());
 		sqlQuery.append("\n");
 
-                if ((this.lineCount > 0) && (((this.lineCount+1)%this.cnt) == 0)){ 
-		
-			try {
-				//System.out.println(sqlQuery.toString());
-				this.sqlStatement.executeUpdate(sqlQuery.toString());
-			    } catch (SQLException e ) {
-				e.printStackTrace();
-			    }
+                if ((this.lineCount > 0) && (((this.lineCount+1)% SQLTempTableProcessor.BULK_INSERT_SIZE) == 0)){ 
+			executeUpdate(sqlQuery.toString());
                } 
 		this.lineCount++;	
 	}
 
 	public void processTail(){
-                if ((this.lineCount > 0) && (((this.lineCount+1) % this.cnt) != 0)){ 
-			try {
-				//System.out.println(sqlQuery.toString());
-				this.sqlStatement.executeUpdate(sqlQuery.toString());
-			    } catch (SQLException e ) {
-				e.printStackTrace();
-			    }
+                if (  (this.lineCount > 0) 
+                    &&( ((this.lineCount+1) % SQLTempTableProcessor.BULK_INSERT_SIZE) != 0)){ 
+			executeUpdate(sqlQuery.toString());
                } 
+	
+		releaseSQLResources();	
 	}
 
+
+	public Boolean executeUpdate(String query){
+		Boolean success = true;
+		if ( sqlStatement != null) {
+			try {
+				sqlStatement.executeUpdate(query);
+			} catch (SQLException e ) {
+				e.printStackTrace();
+				success = false;
+			}
+		}
+		return success;
+	}
+
+
+
+	public Boolean allocateSQLResources(){
+		Boolean success = true;
+		try {
+			DataSource dataSource = DataSource.getInstance();
+			this.sqlConnection = dataSource.getConnection();
+			this.sqlStatement = sqlConnection.createStatement();
+		} catch ( SQLException e){
+			e.printStackTrace();
+			success = false;
+		} catch (IOException e){
+			e.printStackTrace();
+			success = false;
+		}
+		return success;
+	}
+
+	public Boolean releaseSQLResources(){
+		Boolean success = true;
+		
+		if ( this.sqlStatement != null) {
+			try {
+				this.sqlStatement.close();
+			} catch (SQLException e ) {
+				e.printStackTrace();
+				success = false;
+			}
+		}
+	
+		if ( this.sqlConnection != null) {
+			try {
+				this.sqlConnection.close();
+			} catch (SQLException e ) {
+				e.printStackTrace();
+				success = false;
+			}
+		}
+
+		return success;
+	}
 }
