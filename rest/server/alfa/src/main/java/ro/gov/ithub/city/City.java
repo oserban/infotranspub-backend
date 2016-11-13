@@ -1,9 +1,8 @@
 package ro.gov.ithub.city;
 
-import com.google.gson.Gson;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ro.gov.ithub.agency.station.Agency;
+import ro.gov.ithub.agency.Agency;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.station.Station;
 

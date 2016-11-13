@@ -1,4 +1,4 @@
-package ro.gov.ithub.agency.station;
+package ro.gov.ithub.agency;
 
 public interface AgencyService {
 

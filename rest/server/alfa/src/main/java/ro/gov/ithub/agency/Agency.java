@@ -1,4 +1,4 @@
-package ro.gov.ithub.agency.station;
+package ro.gov.ithub.agency;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
