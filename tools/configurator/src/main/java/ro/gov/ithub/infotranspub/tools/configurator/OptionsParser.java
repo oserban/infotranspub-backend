@@ -10,7 +10,6 @@ public class OptionsParser {
 	private static final OptionsParser instance = new OptionsParser();
 
 	protected  OptionsParser(){
-		options = buildOptions();
 	}
 
 	public static OptionsParser getInstance(){
@@ -29,8 +28,9 @@ public class OptionsParser {
 		return parsedCommandLine;
 	}
 
-	public void parseOnce(String[] args){
+	public void parseOnce(String[] args, Options opt){
 		if (parsedArguments == null ){
+			options = opt;
 			parsedArguments = parse(args);
 			if (parsedArguments == null ) {
 				System.exit(1);
@@ -52,35 +52,10 @@ public class OptionsParser {
 		return parsedArguments;
 	}	
 
-	private Options buildOptions(){
+	public Options buildOptions(){
 		Options acceptedOptions = new Options();
 		new OptionHelp().addToOptionList(acceptedOptions);
 		new OptionConfigFile().addToOptionList(acceptedOptions);
-
-
-		Option age = OptionBuilder.withLongOpt("kOptionAge")
-		.hasArg()
-		.withValueSeparator()
-		.withDescription("Age (in days) of cache item before being recomputed")
-		.create("a");
-
-		Option server = OptionBuilder.withLongOpt("kOptionNLTServer")
-		.hasArg()
-		.withValueSeparator()
-		.withDescription("The NLT server address")
-		.create("s");
-
-		Option numResults = OptionBuilder.withLongOpt("kOptionNumResults")
-		.hasArg()
-		.withValueSeparator()
-		.withDescription("Number of results per item")
-		.create("r");
-
-		Option configFile = OptionBuilder.withLongOpt("kOptionConfigFile")
-		.hasArg()
-		.withValueSeparator()
-		.withDescription("Use the specified configuration file")
-		.create();
 
 		return	acceptedOptions;
 	}

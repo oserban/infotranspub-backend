@@ -4,8 +4,9 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.OptionBuilder;
 public abstract class BasicOption{
 	public BasicOption(){
-
 	}
+	
+		
 
 	public void addToOptionList(Options optionList){
 		if (hasLongOption() ){
