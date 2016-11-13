@@ -1,37 +1,33 @@
-package ro.gov.ithub.city;
+package ro.gov.ithub.agency.station;
 
-import com.google.gson.Gson;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ro.gov.ithub.agency.station.Agency;
 import ro.gov.ithub.base.BaseEntity;
+import ro.gov.ithub.city.City;
 import ro.gov.ithub.station.Station;
 
 import java.util.List;
 
+/**
+ * Created by Mihnea on 11/12/16.
+ */
 @Data
 @NoArgsConstructor
-public class City implements BaseEntity {
+public class Agency implements BaseEntity {
 
     private int id;
     private String name;
-    private List<Agency> agencies;
+    private City city;
     private List<Station> stations;
 
-    public City(int cityId, String cityName) {
-        this.id = cityId;
-        this.name = cityName;
-    }
-
-    public City(String cityName) {
-        this.name = cityName;
+    public Agency(int agencyId,
+                  String agencyName) {
+        this.id = agencyId;
+        this.name = agencyName;
     }
 
     @Override
     public String toString() {
         return GSON.toJson(this);
     }
-
 }
-
-
