@@ -1,5 +1,6 @@
-package ro.gov.ithub.infotranspub.stoplist;
-import ro.gov.ithub.infotranspub.stoplist.options.*;
+package ro.gov.ithub.infotranspub.tools.configurator;
+import ro.gov.ithub.infotranspub.tools.configurator.options.OptionHelp;
+import ro.gov.ithub.infotranspub.tools.configurator.options.OptionConfigFile;
 import org.apache.commons.cli.*;
 
 public class OptionsParser {

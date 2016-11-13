@@ -1,4 +1,4 @@
-package ro.gov.ithub.infotranspub.stoplist.options;
+package ro.gov.ithub.infotranspub.tools.configurator.options;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.OptionBuilder;

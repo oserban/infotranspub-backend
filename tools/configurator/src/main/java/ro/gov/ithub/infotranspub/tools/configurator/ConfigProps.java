@@ -1,5 +1,5 @@
-package ro.gov.ithub.infotranspub.stoplist;
-import ro.gov.ithub.infotranspub.stoplist.options.*;
+package ro.gov.ithub.infotranspub.tools.configurator;
+import ro.gov.ithub.infotranspub.tools.configurator.options.*;
 import org.apache.commons.cli.*;
 import java.io.File;
 import java.io.FileInputStream;

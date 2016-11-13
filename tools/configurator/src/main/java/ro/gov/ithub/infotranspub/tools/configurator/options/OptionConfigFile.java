@@ -1,4 +1,4 @@
-package ro.gov.ithub.infotranspub.stoplist.options;
+package ro.gov.ithub.infotranspub.tools.configurator.options;
 
 public class OptionConfigFile extends BasicOption{
 
