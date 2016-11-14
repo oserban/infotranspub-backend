@@ -15,7 +15,7 @@ public class CityController extends BaseController<City> {
 
 	@RequestMapping("/city")
 	public List<City> getAllCities() {
-		return cityService.getHardcodedCities();
+		return cityService.getCities();
 	}
 
 }
