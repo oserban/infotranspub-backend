@@ -14,9 +14,4 @@ public class AgencyController extends BaseController<Agency> {
 	@Autowired
 	private AgencyService agencyService;
 
-	@RequestMapping("/agencies")
-	public List<Agency> getAllAgencies() {
-		return new ArrayList<>();
-	}
-
 }

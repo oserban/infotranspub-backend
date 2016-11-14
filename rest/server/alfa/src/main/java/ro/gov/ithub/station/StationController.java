@@ -15,9 +15,4 @@ public class StationController extends BaseController<Station> {
 	@Autowired
 	private StationService stationService;
 
-	@RequestMapping("/stations")
-	public List<Station> getAllStations() {
-		return new ArrayList<>();
-	}
-
 }
