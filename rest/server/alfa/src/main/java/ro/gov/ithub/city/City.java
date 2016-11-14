@@ -1,18 +1,21 @@
-package ro.gov.ithub.cities;
+package ro.gov.ithub.city;
 
-import com.google.gson.Gson;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ro.gov.ithub.agency.Agency;
 import ro.gov.ithub.base.BaseEntity;
+import ro.gov.ithub.station.Station;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 public class City implements BaseEntity {
 
-    private static final Gson GSON = new Gson();
-
     private int id;
     private String name;
+    private List<Agency> agencies;
+    private List<Station> stations;
 
     public City(int cityId, String cityName) {
         this.id = cityId;
@@ -25,9 +28,7 @@ public class City implements BaseEntity {
 
     @Override
     public String toString() {
-        String json = GSON.toJson(this);
-        return json;
-
+        return GSON.toJson(this);
     }
 
 }
