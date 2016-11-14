@@ -6,4 +6,5 @@ public interface CityService {
 
     List<City> getCities();
 
+    City getCityWithAgencies(String cityName);
 }
