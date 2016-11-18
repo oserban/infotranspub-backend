@@ -1,6 +1,6 @@
 /*
 Order of creation 
-DirectionType, TransportType
+DirectionType, TransportType = referenced by other tables
 City, Agency
 CityAgency
 Route
@@ -16,46 +16,8 @@ City, Agency
 DirectionType, TransportType
 */
 
-/*
-DROP INDEX IF EXISTS I_Trips;
-DROP TABLE IF EXISTS T_Trips;
 
-DROP SEQUENCE S_Trips;
-
-DROP INDEX IF EXISTS I_Routes;
-DROP TABLE IF EXISTS T_Routes;
-
-DROP SEQUENCE S_Routes;
-
-DROP INDEX IF EXISTS I_CityAgency;
-DROP TABLE IF EXISTS T_CityAgency;
-
-DROP INDEX IF EXISTS I_City;
-DROP TABLE IF EXISTS T_City;
-
-DROP SEQUENCE S_City;
-
-DROP INDEX IF EXISTS I_Agency;
-DROP TABLE IF EXISTS T_Agency;
-
-DROP SEQUENCE S_Agency;
-
-DROP INDEX IF EXISTS I_DirectionType;
-DROP TABLE IF EXISTS T_DirectionType;
-
-DROP SEQUENCE S_DirectionType;
-
-DROP INDEX IF EXISTS I_TransportType;
-DROP TABLE IF EXISTS T_TransportType;
-
-DROP SEQUENCE S_TransportType;
-*/
-
-
-
-
-
-
+-- This table contains values from the GTFS standard
 
 CREATE TABLE T_DirectionType(
 	id 		integer 	PRIMARY KEY, 	-- internal to the database
@@ -64,10 +26,10 @@ CREATE TABLE T_DirectionType(
 	description	text 		NOT	NULL
 );
 
-
-
 CREATE UNIQUE INDEX I_DirectionType ON T_DirectionType (id,short_name);
 
+
+-- This table contains values from the GTFS standard
 
 CREATE TABLE T_TransportType(
 	id 		integer 	PRIMARY KEY, 	-- internal to the database
@@ -76,31 +38,23 @@ CREATE TABLE T_TransportType(
 	description	text 		NOT	NULL
 );
 
-
-
 CREATE UNIQUE INDEX I_TransportType ON T_TransportType (id,short_name);
 
 
 CREATE SEQUENCE S_City INCREMENT  BY 1 
      START WITH  1 ;
 
-
-
 CREATE TABLE T_City(
 	id 		integer 	PRIMARY KEY, 	-- internal to the database
 	name		text 		NOT 	NULL
 );
 
-
-
 CREATE UNIQUE INDEX I_City ON T_City (id, name);
-
 ALTER TABLE T_City ALTER COLUMN id SET DEFAULT nextval('S_City') ;
+
 
 CREATE SEQUENCE S_Agency INCREMENT  BY 1 
      START WITH  1 ;
-
-
 
 CREATE TABLE T_Agency(
 	id 		integer 	PRIMARY KEY, 	-- internal to the database
@@ -114,30 +68,23 @@ CREATE TABLE T_Agency(
 	gtfs_agency_id 	text 			NULL	-- GTFS:agency_id
 );
 
-
-
 CREATE UNIQUE INDEX I_Agency ON T_Agency (id, name);
-
 ALTER TABLE T_Agency ALTER COLUMN id SET DEFAULT nextval('S_Agency') ;
 
-
-
+-- Link table between City and Agency - will help in the future
 CREATE TABLE T_CityAgency(
 	id_city		integer 	REFERENCES T_City(id),
 	id_agency	integer 	REFERENCES T_Agency(id)
 );
 
-
 CREATE UNIQUE INDEX I_CityAgency ON T_CityAgency (id_city, id_agency);
+
 
 CREATE SEQUENCE S_Routes INCREMENT  BY 1 
      START WITH  1 ;
 
-
-
 CREATE TABLE T_Routes(
 	id 		integer 	PRIMARY KEY, 	-- internal to the database
-/*	id_agency	integer 	REFERENCES T_Agency(id),	-- GTFS:agency_id */
 	short_name 	text 		NOT 	NULL,
 	long_name 	text 		NOT 	NULL,
 	description	text 			NULL,
@@ -149,24 +96,15 @@ CREATE TABLE T_Routes(
 	gtfs_agency_id	text			NULL
 );
 
-
-
 CREATE UNIQUE INDEX I_Routes ON T_Routes (id, /*id_agency,*/short_name);
-
 ALTER TABLE T_Routes ALTER COLUMN id SET DEFAULT nextval('S_Routes') ;
-
-
 
 
 CREATE SEQUENCE S_Trips INCREMENT  BY 1 
      START WITH  1 ;
 
-
-
 CREATE TABLE T_Trips(
 	id 		integer 	PRIMARY KEY, 	-- internal to the database
-/*	id_route	integer 	REFERENCES T_Routes(id),	-- GTFS:route_id
-	id_service 	integer 	NOT 	NULL, -- GTFS:service_id*/
 	headsign 	text 		 	NULL,
 	short_name	text 			NULL,
 	id_direction	integer			REFERENCES T_DirectionType(id),
@@ -179,18 +117,13 @@ bikes_allowed		integer			NULL,
 	gtfs_trip_id	text		NOT	NULL -- GTFS: trip_id
 );
 
-
-
 CREATE UNIQUE INDEX I_Trips ON T_Trips (id, short_name);
-
 ALTER TABLE T_Trips ALTER COLUMN id SET DEFAULT nextval('S_Trips') ;
 
 
 
 CREATE SEQUENCE S_Stops INCREMENT  BY 1 
      START WITH  1 ;
-
-
 
 CREATE TABLE T_Stops(
 	id 		integer 	PRIMARY KEY, 	-- internal to the database
@@ -211,7 +144,6 @@ CREATE TABLE T_Stops(
 
 
 CREATE UNIQUE INDEX I_Stops ON T_Stops (id, name, code);
-
 ALTER TABLE T_Stops ALTER COLUMN id SET DEFAULT nextval('S_Stops') ;
 
 

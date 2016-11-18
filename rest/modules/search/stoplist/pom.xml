@@ -14,6 +14,13 @@
 
 
   <dependencies>
+<!-- ro.gov.ithub.infotranspub.tools.configurator API -->
+<dependency>
+  <groupId>ro.gov.ithub.infotranspub</groupId>
+  <artifactId>tools-configurator</artifactId>
+  <version>1.0-SNAPSHOT</version>
+</dependency>
+
 <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 <dependency>
     <groupId>postgresql</groupId>
