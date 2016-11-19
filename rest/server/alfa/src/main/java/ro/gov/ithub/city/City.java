@@ -12,12 +12,12 @@ import java.util.List;
 @NoArgsConstructor
 public class City implements BaseEntity {
 
-    private int id;
+    private String id;
     private String name;
     private List<Agency> agencies;
     private List<Station> stations;
 
-    public City(int cityId, String cityName) {
+    public City(String cityId, String cityName) {
         this.id = cityId;
         this.name = cityName;
     }

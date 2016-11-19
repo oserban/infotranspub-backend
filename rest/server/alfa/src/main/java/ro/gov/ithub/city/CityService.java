@@ -1,10 +1,10 @@
 package ro.gov.ithub.city;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface CityService {
 
-    List<City> getCities();
+    Collection<City> getCities();
 
     City getCityWithAgencies(String cityName);
 }
