@@ -6,22 +6,36 @@ import ro.gov.ithub.agency.Agency;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.city.City;
 
+import javax.persistence.*;
+
 /**
  * Created by Mihnea on 11/12/16.
  */
 @Data
 @NoArgsConstructor
+@Entity
+@Table
 public class Station implements BaseEntity {
 
-    private int id;
-    private String name;
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Access(AccessType.PROPERTY)
+    private Integer id;
+
+    @Column(nullable = false)
+    private String stationName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private City city;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Agency agency;
 
-    public Station(int stationId,
-                   String stationName) {
+    public Station(final Integer stationId,
+                   final String stationName) {
         this.id = stationId;
-        this.name = stationName;
+        this.stationName = stationName;
     }
 
     @Override

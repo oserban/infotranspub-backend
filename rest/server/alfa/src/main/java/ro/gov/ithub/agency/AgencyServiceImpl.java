@@ -1,5 +1,6 @@
 package ro.gov.ithub.agency;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.gov.ithub.city.City;
 
@@ -9,23 +10,26 @@ import java.util.List;
 @Service
 public class AgencyServiceImpl implements AgencyService {
 
+    @Autowired
+    private AgencyRepository agencyRepository;
+
     private static final List<Agency> ALL_AGENCIES;
     static {
         ALL_AGENCIES = new ArrayList<>();
-        ALL_AGENCIES.add(createAgency(1, "RATUC", 1));
-        ALL_AGENCIES.add(createAgency(2, "TFG", 2));
-        ALL_AGENCIES.add(createAgency(3, "RATB", 2));
-        ALL_AGENCIES.add(createAgency(4, "Transport-me", 3));
-        ALL_AGENCIES.add(createAgency(5, "Ia-ma nene", 3));
-        ALL_AGENCIES.add(createAgency(6, "Nashoo", 3));
+        ALL_AGENCIES.add(createAgency(1, "RATUC", "ro_cj_cluj"));
+        ALL_AGENCIES.add(createAgency(2, "TFG", "ro_cj_cluj"));
+        ALL_AGENCIES.add(createAgency(3, "RATB", "ro_cj_cluj"));
+        ALL_AGENCIES.add(createAgency(4, "Transport-me", "ro_is_iasi"));
+        ALL_AGENCIES.add(createAgency(5, "Ia-ma nene", "ro_is_iasi"));
+        ALL_AGENCIES.add(createAgency(6, "Nashoo", "ro_is_iasi"));
     }
 
     private static Agency createAgency(int agencyId, final String agencyName,
-                                       final int cityId) {
+                                       final String cityUrl) {
         Agency agency = new Agency(agencyId, agencyName);
 
         City correspondingCity = new City();
-        correspondingCity.setId(cityId);
+        correspondingCity.setCityUrl(cityUrl);
         agency.setCity(correspondingCity);
 
         return agency;
@@ -46,7 +50,7 @@ public class AgencyServiceImpl implements AgencyService {
         for (Agency a : ALL_AGENCIES) {
             City cityOfAgency = a.getCity();
             if((cityOfAgency != null)
-                    && (cityOfAgency.getId()==city.getId())) {
+                    && (cityOfAgency.getCityUrl()==city.getCityUrl())) {
                 agenciesForCity.add(a);
             }
         }

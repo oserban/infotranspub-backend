@@ -17,7 +17,7 @@ public class CityController extends BaseController<City> {
 	private CityService cityService;
 
 	@RequestMapping(value = "/citylist", method = RequestMethod.GET)
-	public List<City> getAllCities() {
+	public Collection<City> getAllCities() {
 		return cityService.getCities();
 	}
 
