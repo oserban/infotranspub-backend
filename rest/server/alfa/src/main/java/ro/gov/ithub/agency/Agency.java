@@ -9,8 +9,6 @@ import ro.gov.ithub.station.Station;
 import javax.persistence.*;
 import java.util.List;
 
-import static ro.gov.ithub.base.BaseEntity.SCHEMA_NAME;
-
 /**
  * Created by Mihnea on 11/12/16.
  */

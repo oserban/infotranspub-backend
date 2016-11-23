@@ -8,8 +8,6 @@ import ro.gov.ithub.city.City;
 
 import javax.persistence.*;
 
-import static ro.gov.ithub.base.BaseEntity.SCHEMA_NAME;
-
 /**
  * Created by Mihnea on 11/12/16.
  */
