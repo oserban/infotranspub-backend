@@ -6,24 +6,34 @@ import ro.gov.ithub.agency.Agency;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.station.Station;
 
+import javax.persistence.*;
 import java.util.List;
+
+import static ro.gov.ithub.base.BaseEntity.SCHEMA_NAME;
 
 @Data
 @NoArgsConstructor
+@Entity
+@Table
 public class City implements BaseEntity {
 
-    private String id;
-    private String name;
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Access(AccessType.PROPERTY)
+    private Integer cityId;
+
+    @Column(nullable = false, unique = true)
+    private String cityUrl;
+
+    @OneToMany
     private List<Agency> agencies;
+
+    @OneToMany
     private List<Station> stations;
 
-    public City(String cityId, String cityName) {
-        this.id = cityId;
-        this.name = cityName;
-    }
-
-    public City(String cityName) {
-        this.name = cityName;
+    public City(String cityNaturalId) {
+        this.cityUrl = cityNaturalId;
     }
 
     @Override
