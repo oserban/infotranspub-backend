@@ -1,4 +1,4 @@
-package ro.gov.ithub.agency;
+package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +8,7 @@ import ro.gov.ithub.station.Station;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by Mihnea on 11/12/16.
@@ -22,22 +23,28 @@ public class Agency implements BaseEntity {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Access(AccessType.PROPERTY)
-    private Integer id;
+    private Integer agencyId;
 
     @Column(nullable = false)
     private String agencyName;
+
+    @Column(nullable = false)
+    private String agencyUrl;
+
+    @Column(nullable = false)
+    private TimeZone agencyTimezone;
+
+    @Column
+    private String agencyLang;
+
+    @Column
+    private String agencyPhone;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private City city;
 
     @OneToMany(fetch = FetchType.EAGER)
     private List<Station> stations;
-
-    public Agency(final Integer agencyId,
-                  final String agencyName) {
-        this.id = agencyId;
-        this.agencyName = agencyName;
-    }
 
     @Override
     public String toString() {

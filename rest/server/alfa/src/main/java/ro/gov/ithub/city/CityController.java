@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import ro.gov.ithub.agency.Agency;
+import ro.gov.ithub.entity.Agency;
 import ro.gov.ithub.base.BaseController;
 
 import java.util.*;

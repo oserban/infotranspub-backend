@@ -1,7 +1,6 @@
 package ro.gov.ithub.station;
 
-import ro.gov.ithub.agency.Agency;
-import ro.gov.ithub.city.City;
+import ro.gov.ithub.entity.Agency;
 
 import java.util.List;
 

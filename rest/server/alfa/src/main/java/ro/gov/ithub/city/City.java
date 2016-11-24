@@ -2,7 +2,7 @@ package ro.gov.ithub.city;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ro.gov.ithub.agency.Agency;
+import ro.gov.ithub.entity.Agency;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.station.Station;
 

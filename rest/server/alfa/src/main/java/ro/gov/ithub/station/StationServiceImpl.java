@@ -1,8 +1,7 @@
 package ro.gov.ithub.station;
 
 import org.springframework.stereotype.Service;
-import ro.gov.ithub.agency.Agency;
-import ro.gov.ithub.city.City;
+import ro.gov.ithub.entity.Agency;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class StationServiceImpl implements StationService {
                                          String stationName,
                                          int agencyId) {
         Agency agency = new Agency();
-        agency.setId(agencyId);
+        agency.setAgencyId(agencyId);
 
         Station station = new Station(stationId, stationName);
         station.setAgency(agency);
@@ -54,7 +53,7 @@ public class StationServiceImpl implements StationService {
 
         for (Station s : getStations()) {
             Agency agencyOfStation = s.getAgency();
-            if (agencyOfStation != null && agencyOfStation.getId() == agency.getId()) {
+            if (agencyOfStation != null && agencyOfStation.getAgencyId() == agency.getAgencyId()) {
                 stationsOfAgency.add(s);
             }
         }

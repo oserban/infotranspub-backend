@@ -3,6 +3,7 @@ package ro.gov.ithub.agency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.gov.ithub.city.City;
+import ro.gov.ithub.entity.Agency;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,9 @@ public class AgencyServiceImpl implements AgencyService {
 
     private static Agency createAgency(int agencyId, final String agencyName,
                                        final String cityUrl) {
-        Agency agency = new Agency(agencyId, agencyName);
+        Agency agency = new Agency();
+        agency.setAgencyId(agencyId);
+        agency.setAgencyName(agencyName);
 
         City correspondingCity = new City();
         correspondingCity.setCityUrl(cityUrl);
