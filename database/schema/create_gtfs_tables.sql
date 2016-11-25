@@ -238,7 +238,7 @@ CREATE SEQUENCE S_FareAttributes INCREMENT  BY 1
 
 CREATE TABLE T_FareAttributes(
 	id 		integer 	PRIMARY KEY, 	-- internal to the database
-	price		number 	NOT NULL,
+	price		numeric 	NOT NULL,
 	id_currency	integer		REFERENCES T_Currency(id),
 	payment_method	integer		NOT 	NULL,
 	transfers	integer			NULL,
