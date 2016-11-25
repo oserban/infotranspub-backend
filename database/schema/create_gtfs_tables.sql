@@ -11,8 +11,10 @@ CalendarDates
 Calendar
 Currency
 FareAttributes
+Transfers
 
 Drop order
+Transfers
 FareAttributes
 Currency
 Calendar
@@ -248,3 +250,22 @@ CREATE TABLE T_FareAttributes(
 );
 
 ALTER TABLE T_FareAttributes ALTER COLUMN id SET DEFAULT nextval('S_FareAttributes') ;
+
+
+
+CREATE SEQUENCE S_Transfers INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_Transfers(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	from_stop_id	integer 	REFERENCES T_Stops(id),
+	to_stop_id	integer		REFERENCES T_Stops(id),
+	transfer_type	integer		DEFAULT 0,
+	min_transfer_time	integer			NULL,
+	CONSTRAINT C_T_TransferType CHECK (transfer_type between 0 and 3)	--0 or (empty): This is a recommended transfer point between two routes.
+										--1: This is a timed transfer point between two routes. The departing vehicle is expected to wait for the arriving one, with sufficient time for a passenger to transfer between routes.
+										--2: This transfer requires a minimum amount of time between arrival and departure to ensure a connection. The time required to transfer is specified by min_transfer_time.
+										--3: Transfers are not possible between routes at this location.
+);
+
+ALTER TABLE T_Transfers ALTER COLUMN id SET DEFAULT nextval('S_Transfers') ;

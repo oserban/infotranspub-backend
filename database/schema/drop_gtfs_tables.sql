@@ -11,8 +11,10 @@ CalendarDates
 Calendar
 Currency
 FareAttributes
+Transfers
 
 Drop order
+Transfers
 FareAttributes
 Currency
 Calendar
@@ -27,6 +29,11 @@ DirectionType, TransportType
 */
 
 -- The order of the drop is : first index, second table, third sequence
+DROP TABLE IF EXISTS T_Transfers;
+DROP SEQUENCE S_Transfers;
+
+
+
 DROP TABLE IF EXISTS T_FareAttributes;
 DROP SEQUENCE S_FareAttributes;
 
