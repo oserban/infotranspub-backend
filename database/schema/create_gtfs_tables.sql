@@ -8,8 +8,12 @@ Trips
 Stops
 StopTimes
 CalendarDates
+Calendar
+Currency
 
 Drop order
+Currency
+Calendar
 CalendarDates
 StopTimes
 Stops
@@ -210,3 +214,17 @@ CREATE TABLE T_Calendar(
 );
 
 ALTER TABLE T_Calendar ALTER COLUMN id SET DEFAULT nextval('S_Calendar') ;
+
+
+
+CREATE SEQUENCE S_Currency INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_Currency(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	code		CHARACTER(3) 	NOT NULL,
+	currency_name	CHARACTER VARYING(255)		NOT	NULL
+);
+
+CREATE UNIQUE INDEX I_Currency ON T_Currency (code);
+ALTER TABLE T_Currency ALTER COLUMN id SET DEFAULT nextval('S_Currency') ;

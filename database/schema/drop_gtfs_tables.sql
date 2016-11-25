@@ -9,8 +9,10 @@ Stops
 StopTimes
 CalendarDates
 Calendar
+Currency
 
 Drop order
+Currency
 Calendar
 CalendarDates
 StopTimes
@@ -23,6 +25,11 @@ DirectionType, TransportType
 */
 
 -- The order of the drop is : first index, second table, third sequence
+DROP TABLE IF EXISTS T_Currency;
+DROP SEQUENCE S_Currency;
+
+
+
 DROP TABLE IF EXISTS T_Calendar;
 DROP SEQUENCE S_Calendar;
 
