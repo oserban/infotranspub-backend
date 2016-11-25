@@ -1,4 +1,4 @@
-/*
+﻿/*
 Order of creation 
 DirectionType, TransportType = referenced by other tables
 City, Agency
@@ -6,8 +6,12 @@ CityAgency
 Route
 Trips
 Stops
+StopTimes
+CalendarDates
 
 Drop order
+CalendarDates
+StopTimes
 Stops
 Trips
 Route
@@ -147,3 +151,62 @@ CREATE UNIQUE INDEX I_Stops ON T_Stops (id, name, code);
 ALTER TABLE T_Stops ALTER COLUMN id SET DEFAULT nextval('S_Stops') ;
 
 
+
+CREATE SEQUENCE S_StopTimes INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_StopTimes(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	id_trip		integer		REFERENCES T_Trips(id),
+	arrival_time	time		NOT	NULL,
+	departure_time	time 		NOT	NULL,
+	stop_id		integer		REFERENCES T_Stops(id),
+	stop_sequence	integer		NOT	NULL,
+	stop_headsign	text			NULL,
+	pickup_type	integer		DEFAULT 0,
+	drop_off_type	integer		DEFAULT 0,
+	shape_dist_traveled	text		NULL,
+	timepoint	integer			NULL,
+	CONSTRAINT C_ST_PickupType CHECK (pickup_type>=0 and pickup_type<=3),--only 0, 1, 2 and 3 are allowed
+	CONSTRAINT C_ST_DropOffType CHECK (drop_off_type>=0 and drop_off_type<=3),--only 0, 1, 2 and 3 are allowed
+	CONSTRAINT C_ST_Timepoint CHECK (timepoint>=0 and timepoint<=1)	--only 0, 1 and NULL are allowed 
+);
+
+CREATE UNIQUE INDEX I_StopTimesSequence ON T_StopTimes (id_trip, stop_sequence);
+ALTER TABLE T_StopTimes ALTER COLUMN id SET DEFAULT nextval('S_StopTimes') ;
+
+
+CREATE SEQUENCE S_CalendarDates INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_CalendarDates(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	id_trip		integer		REFERENCES T_Trips(id),
+	calendar_date	date		NOT	NULL,
+	exception_type	integer 		NOT	NULL,
+	CONSTRAINT C_CD_ExceptionType CHECK (exception_type in (1,2))--only 1, 2 are allowed
+);
+
+CREATE UNIQUE INDEX I_CalendarDates ON T_CalendarDates (id_trip, calendar_date);
+ALTER TABLE T_CalendarDates ALTER COLUMN id SET DEFAULT nextval('S_CalendarDates') ;
+
+
+
+CREATE SEQUENCE S_Calendar INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_Calendar(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	id_trip		integer		REFERENCES T_Trips(id),
+	monday		boolean		NOT	NULL,
+	tuesday		boolean		NOT	NULL,
+	wednesday	boolean		NOT	NULL,
+	thursday	boolean		NOT	NULL,
+	friday		boolean		NOT	NULL,
+	saturday	boolean		NOT	NULL,
+	sunday		boolean		NOT	NULL,
+	start_date	date 		NOT	NULL,
+	end_date	date 		NOT	NULL
+);
+
+ALTER TABLE T_Calendar ALTER COLUMN id SET DEFAULT nextval('S_Calendar') ;
