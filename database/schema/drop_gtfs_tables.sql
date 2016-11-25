@@ -9,8 +9,16 @@ Stops
 StopTimes
 CalendarDates
 Calendar
+Currency
+FareAttributes
+Transfers
+FeedInfo
 
 Drop order
+FeedInfo
+Transfers
+FareAttributes
+Currency
 Calendar
 CalendarDates
 StopTimes
@@ -23,6 +31,26 @@ DirectionType, TransportType
 */
 
 -- The order of the drop is : first index, second table, third sequence
+DROP TABLE IF EXISTS T_FeedInfo;
+DROP SEQUENCE S_FeedInfo;
+
+
+
+DROP TABLE IF EXISTS T_Transfers;
+DROP SEQUENCE S_Transfers;
+
+
+
+DROP TABLE IF EXISTS T_FareAttributes;
+DROP SEQUENCE S_FareAttributes;
+
+
+
+DROP TABLE IF EXISTS T_Currency;
+DROP SEQUENCE S_Currency;
+
+
+
 DROP TABLE IF EXISTS T_Calendar;
 DROP SEQUENCE S_Calendar;
 
