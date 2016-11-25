@@ -10,8 +10,10 @@ StopTimes
 CalendarDates
 Calendar
 Currency
+FareAttributes
 
 Drop order
+FareAttributes
 Currency
 Calendar
 CalendarDates
@@ -228,3 +230,21 @@ CREATE TABLE T_Currency(
 
 CREATE UNIQUE INDEX I_Currency ON T_Currency (code);
 ALTER TABLE T_Currency ALTER COLUMN id SET DEFAULT nextval('S_Currency') ;
+
+
+
+CREATE SEQUENCE S_FareAttributes INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_FareAttributes(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	price		number 	NOT NULL,
+	id_currency	integer		REFERENCES T_Currency(id),
+	payment_method	integer		NOT 	NULL,
+	transfers	integer			NULL,
+	transfer_duration	integer		NULL,
+	CONSTRAINT C_FA_PaymentMethod CHECK (payment_method in (0,1)),--0: Fare is paid on board. 1: Fare must be paid before boarding.
+	CONSTRAINT C_FA_Transfers CHECK (transfers in (0,1,2))--0: No transfers permitted on this fare.1: Passenger may transfer once.2: Passenger may transfer twice.(empty): If this field is empty, unlimited transfers are permitted.
+);
+
+ALTER TABLE T_FareAttributes ALTER COLUMN id SET DEFAULT nextval('S_FareAttributes') ;
