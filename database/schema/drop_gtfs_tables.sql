@@ -6,8 +6,10 @@ CityAgency
 Route
 Trip
 Stops
+StopTimes
 
 Drop order
+StopTimes
 Stops
 Trip
 Route
@@ -17,6 +19,10 @@ DirectionType, TransportType
 */
 
 -- The order of the drop is : first index, second table, third sequence
+DROP INDEX IF EXISTS I_StopTimes;
+DROP TABLE IF EXISTS T_StopTimes;
+DROP SEQUENCE S_StopTimes;
+
 
 DROP INDEX IF EXISTS I_Stops;
 DROP TABLE IF EXISTS T_Stops;

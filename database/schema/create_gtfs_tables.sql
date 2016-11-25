@@ -6,8 +6,10 @@ CityAgency
 Route
 Trips
 Stops
+StopTimes
 
 Drop order
+StopTimes
 Stops
 Trips
 Route
@@ -147,3 +149,26 @@ CREATE UNIQUE INDEX I_Stops ON T_Stops (id, name, code);
 ALTER TABLE T_Stops ALTER COLUMN id SET DEFAULT nextval('S_Stops') ;
 
 
+
+CREATE SEQUENCE S_StopTimes INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_StopTimes(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	id_trip		integer		REFERENCES T_Trips(id),
+	arrival_time	time		NOT	NULL,
+	departure_time	time 		NOT	NULL,
+	stop_id		integer		REFERENCES T_Stops(id),
+	stop_sequence	integer		NOT	NULL,
+	stop_headsign	text			NULL,
+	pickup_type	integer		DEFAULT 0,
+	drop_off_type	integer		DEFAULT 0,
+	shape_dist_traveled	text		NULL,
+	timepoint	integer			NULL,
+	CONSTRAINT C_ST_PickupType CHECK (pickup_type>=0 and pickup_type<=3),--only 0, 1, 2 and 3 are allowed
+	CONSTRAINT C_ST_DropOffType CHECK (drop_off_type>=0 and drop_off_type<=3),--only 0, 1, 2 and 3 are allowed
+	CONSTRAINT C_ST_Timepoint CHECK (timepoint>=0 and timepoint<=1)	--only 0, 1 and NULL are allowed 
+);
+
+CREATE UNIQUE INDEX I_StopTimes ON T_StopTimes (id, id_trip);
+ALTER TABLE T_StopTimes ALTER COLUMN id SET DEFAULT nextval('S_StopTimes') ;
