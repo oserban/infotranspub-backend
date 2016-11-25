@@ -1,4 +1,4 @@
-/*
+﻿/*
 Order of creation 
 DirectionType, TransportType = referenced by other tables
 City, Agency
@@ -7,8 +7,10 @@ Route
 Trips
 Stops
 StopTimes
+CalendarDates
 
 Drop order
+CalendarDates
 StopTimes
 Stops
 Trips
@@ -172,3 +174,18 @@ CREATE TABLE T_StopTimes(
 
 CREATE UNIQUE INDEX I_StopTimesSequence ON T_StopTimes (id_trip, stop_sequence);
 ALTER TABLE T_StopTimes ALTER COLUMN id SET DEFAULT nextval('S_StopTimes') ;
+
+
+CREATE SEQUENCE S_CalendarDates INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_CalendarDates(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	id_trip		integer		REFERENCES T_Trips(id),
+	calendar_date	date		NOT	NULL,
+	exception_type	integer 		NOT	NULL,
+	CONSTRAINT C_CD_ExceptionType CHECK (exception_type in (1,2))--only 1, 2 are allowed
+);
+
+CREATE UNIQUE INDEX I_CalendarDates ON T_CalendarDates (id_trip, calendar_date);
+ALTER TABLE T_CalendarDates ALTER COLUMN id SET DEFAULT nextval('S_CalendarDates') ;

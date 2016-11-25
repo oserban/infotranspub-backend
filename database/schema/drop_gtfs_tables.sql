@@ -7,8 +7,10 @@ Route
 Trip
 Stops
 StopTimes
+CalendarDates
 
 Drop order
+CalendarDates
 StopTimes
 Stops
 Trip
@@ -19,6 +21,12 @@ DirectionType, TransportType
 */
 
 -- The order of the drop is : first index, second table, third sequence
+DROP INDEX IF EXISTS I_CalendarDates;
+DROP TABLE IF EXISTS T_CalendarDates;
+DROP SEQUENCE S_CalendarDates;
+
+
+
 DROP INDEX IF EXISTS I_StopTimesSequence;
 DROP TABLE IF EXISTS T_StopTimes;
 DROP SEQUENCE S_StopTimes;
