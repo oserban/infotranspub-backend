@@ -189,3 +189,24 @@ CREATE TABLE T_CalendarDates(
 
 CREATE UNIQUE INDEX I_CalendarDates ON T_CalendarDates (id_trip, calendar_date);
 ALTER TABLE T_CalendarDates ALTER COLUMN id SET DEFAULT nextval('S_CalendarDates') ;
+
+
+
+CREATE SEQUENCE S_Calendar INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_Calendar(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	id_trip		integer		REFERENCES T_Trips(id),
+	monday		boolean		NOT	NULL,
+	tuesday		boolean		NOT	NULL,
+	wednesday	boolean		NOT	NULL,
+	thursday	boolean		NOT	NULL,
+	friday		boolean		NOT	NULL,
+	saturday	boolean		NOT	NULL,
+	sunday		boolean		NOT	NULL,
+	start_date	date 		NOT	NULL,
+	end_date	date 		NOT	NULL
+);
+
+ALTER TABLE T_Calendar ALTER COLUMN id SET DEFAULT nextval('S_Calendar') ;
