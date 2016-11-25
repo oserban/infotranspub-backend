@@ -19,7 +19,7 @@ DirectionType, TransportType
 */
 
 -- The order of the drop is : first index, second table, third sequence
-DROP INDEX IF EXISTS I_StopTimes;
+DROP INDEX IF EXISTS I_StopTimesSequence;
 DROP TABLE IF EXISTS T_StopTimes;
 DROP SEQUENCE S_StopTimes;
 

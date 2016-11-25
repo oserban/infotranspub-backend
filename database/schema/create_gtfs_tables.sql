@@ -170,5 +170,5 @@ CREATE TABLE T_StopTimes(
 	CONSTRAINT C_ST_Timepoint CHECK (timepoint>=0 and timepoint<=1)	--only 0, 1 and NULL are allowed 
 );
 
-CREATE UNIQUE INDEX I_StopTimes ON T_StopTimes (id, id_trip);
+CREATE UNIQUE INDEX I_StopTimesSequence ON T_StopTimes (id_trip, stop_sequence);
 ALTER TABLE T_StopTimes ALTER COLUMN id SET DEFAULT nextval('S_StopTimes') ;
