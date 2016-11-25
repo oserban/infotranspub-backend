@@ -12,8 +12,10 @@ Calendar
 Currency
 FareAttributes
 Transfers
+FeedInfo
 
 Drop order
+FeedInfo
 Transfers
 FareAttributes
 Currency
@@ -269,3 +271,20 @@ CREATE TABLE T_Transfers(
 );
 
 ALTER TABLE T_Transfers ALTER COLUMN id SET DEFAULT nextval('S_Transfers') ;
+
+
+
+CREATE SEQUENCE S_FeedInfo INCREMENT  BY 1 
+     START WITH  1 ;
+
+CREATE TABLE T_FeedInfo(
+	id 		integer 	PRIMARY KEY, 	-- internal to the database
+	feed_publisher_name	text 	NOT	NULL,
+	feed_publisher_url	text	NOT	NULL,
+	feed_lang	character varying(128)		NOT NULL,
+	feed_start_date	date			NULL,
+	feed_end_date	date			NULL,
+	feed_version	character varying(32)	NULL
+);
+
+ALTER TABLE T_FeedInfo ALTER COLUMN id SET DEFAULT nextval('S_FeedInfo') ;
