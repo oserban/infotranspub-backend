@@ -33,6 +33,11 @@ public class RatbCrawler extends GenericCrawler {
         urlMappings.put(LineType.night, BASE_URL + "v_noapte.php");
     }
 
+    @Override
+    public Agency getAgency() {
+        return new Agency("RATB", "Bucuresti, Romania");
+    }
+
     public List<String> parseLinesIds(LineType type) throws IOException {
         String url = urlMappings.get(type);
         if (url == null) {

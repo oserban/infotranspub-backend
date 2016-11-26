@@ -20,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static ro.gov.ithub.infotranspub.extraction.gps.HackUtils.fixAddresses;
+
 
 public class GpsDataFixer {
     private static final Logger logger = LogManager.getLogger(GpsDataFixer.class);
@@ -50,7 +52,7 @@ public class GpsDataFixer {
         nominatimClient = new JsonNominatimClient(httpClient, "abc@bac.com");
     }
 
-    public void fixLine(Line line) {
+    public void fixLine(Line line, String agencyLocation) {
         if (line == null) {
             return;
         }
@@ -60,11 +62,8 @@ public class GpsDataFixer {
             if (stops != null) {
                 for (LineStop stop : stops) {
                     if (stop.getGpsCoordinates() == null) {
-                        GpsPoint point = findGpsPoint(stop.getName(), line.getType());
-                        if (point == null) {
-                            // second attempt, include the address
-                            point = findGpsPoint(stop.getName() + ", " + stop.getLocation(), line.getType());
-                        }
+                        String poi = stop.getName() + ", " + fixAddresses(stop.getLocation()) + ", " + agencyLocation;
+                        GpsPoint point = findGpsPoint(poi, line.getType());
                         stop.setGpsCoordinates(point);
                     }
                 }
@@ -109,6 +108,5 @@ public class GpsDataFixer {
             logger.error("Could not retrieve GPS coordinate. Cause: " + e.getMessage());
             return null;
         }
-    }//44.447447, 26.063416
-    //44.447344, 26.062942
+    }
 }

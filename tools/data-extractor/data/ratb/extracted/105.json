@@ -9428,6 +9428,10 @@
         "stopCode": "4248",
         "name": "SOSEAUA ORHIDEELOR",
         "location": "SOS. ORHIDEELOR",
+        "gpsCoordinates": {
+          "latitude": 44.4436379,
+          "longitude": 26.0610845
+        },
         "scheduleTable": {
           "sunday": [
             "4:59",

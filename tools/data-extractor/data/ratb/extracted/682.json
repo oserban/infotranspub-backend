@@ -1860,6 +1860,10 @@
         "stopCode": "3973",
         "name": "SOS.PANTELIMON",
         "location": "SOS. PANTELIMON",
+        "gpsCoordinates": {
+          "latitude": 44.4458687,
+          "longitude": 26.1350788
+        },
         "scheduleTable": {
           "sunday": [
             "5:03",
