@@ -42,7 +42,6 @@ public class GpsDataFixer {
     private Map<String, GpsPoint> pointCache = new HashMap<>();
 
     public GpsDataFixer() {
-        logger.info("Preparing http client");
         final SchemeRegistry registry = new SchemeRegistry();
         registry.register(new Scheme("http", new PlainSocketFactory(), 80));
         final ClientConnectionManager connexionManager = new SingleClientConnManager(null, registry);
@@ -52,7 +51,7 @@ public class GpsDataFixer {
         nominatimClient = new JsonNominatimClient(httpClient, "abc@bac.com");
     }
 
-    public void fixLine(Line line, String agencyLocation) {
+    public void fixLine(Line line, City agencyLocation) {
         if (line == null) {
             return;
         }
@@ -62,7 +61,8 @@ public class GpsDataFixer {
             if (stops != null) {
                 for (LineStop stop : stops) {
                     if (stop.getGpsCoordinates() == null) {
-                        String poi = stop.getName() + ", " + fixAddresses(stop.getLocation()) + ", " + agencyLocation;
+                        String poi = stop.getName() + ", " + fixAddresses(stop.getLocation()) + ", " +
+                                agencyLocation.getName() + ", " + agencyLocation.getCountry();
                         GpsPoint point = findGpsPoint(poi, line.getType());
                         stop.setGpsCoordinates(point);
                     }
@@ -100,7 +100,7 @@ public class GpsDataFixer {
                 }
 
                 logger.error("Could not find POI for " + poi + " Line type = " + lineType);
-                logger.error(gson.toJson(addresses));
+                logger.debug(gson.toJson(addresses));
                 pointCache.put(cacheKey, null);
                 return null;
             }

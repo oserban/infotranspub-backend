@@ -2,19 +2,19 @@ package ro.gov.ithub.infotranspub.extraction.data;
 
 public class Agency {
     private String name;
-    private String location;
+    private City city;
 
-    public Agency(String name, String location) {
+    public Agency(String name, City city) {
         this.name = name;
-        this.location = location;
+        this.city = city;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getLocation() {
-        return location;
+    public City getCity() {
+        return city;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Agency {
     public String toString() {
         return "Agency{" +
                 "name='" + name + '\'' +
-                ", location='" + location + '\'' +
+                ", city='" + city + '\'' +
                 '}';
     }
 }

@@ -5086,6 +5086,10 @@
         "stopCode": "527",
         "name": "BD. 1 DECEMBRIE 1918",
         "location": "BD. TH.PALLADY",
+        "gpsCoordinates": {
+          "latitude": 44.4107643,
+          "longitude": 26.1732723
+        },
         "scheduleTable": {
           "sunday": [
             "5:15",

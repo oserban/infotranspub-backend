@@ -19,6 +19,8 @@ import static ro.gov.ithub.infotranspub.extraction.extractor.ratb.RatbUtil.*;
 public class RatbCrawler extends GenericCrawler {
     private static final Logger logger = LogManager.getLogger(RatbCrawler.class);
 
+    private static final Agency AGENCY = new Agency("RATB", new City("Bucuresti", "Romania"));
+
     private static final String BASE_URL = "http://ratb.ro/";
     private static final String NIGHT_URL_PATTERN = BASE_URL + "v_statii_noapte.php?tlin1=%s";
 
@@ -35,7 +37,7 @@ public class RatbCrawler extends GenericCrawler {
 
     @Override
     public Agency getAgency() {
-        return new Agency("RATB", "Bucuresti, Romania");
+        return AGENCY;
     }
 
     public List<String> parseLinesIds(LineType type) throws IOException {

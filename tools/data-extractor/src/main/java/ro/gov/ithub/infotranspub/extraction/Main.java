@@ -73,7 +73,7 @@ public class Main {
                 }
 
                 if (dataFixer != null && lineInformation != null) {
-                    dataFixer.fixLine(lineInformation, agency.getLocation());
+                    dataFixer.fixLine(lineInformation, agency.getCity());
                     fileCache.write(lineInformation);
                 }
             }
