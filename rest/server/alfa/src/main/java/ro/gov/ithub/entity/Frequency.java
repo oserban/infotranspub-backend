@@ -3,11 +3,11 @@ package ro.gov.ithub.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
-import ro.gov.ithub.city.City;
+import ro.gov.ithub.entity.util.FrequencyExactTimes;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.TimeZone;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Mihnea on 11/12/16.
@@ -16,36 +16,28 @@ import java.util.TimeZone;
 @NoArgsConstructor
 @Entity
 @Table
-public class Agency implements BaseEntity {
-
-    static final String TABLE_NAME = "AGENCY";
+public class Frequency implements BaseEntity {
 
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Access(AccessType.PROPERTY)
-    private Integer agencyId;
+    private Integer frequencyId;
 
     @Column(nullable = false)
-    private String agencyName;
+    private Integer tripId;
 
     @Column(nullable = false)
-    private String agencyUrl;
+    private Date startTime;
 
     @Column(nullable = false)
-    private TimeZone agencyTimezone;
+    private Date stopTime;
 
-    @Column
-    private String agencyLang;
+    @Column(nullable = false)
+    private Integer headwaySecs;
 
-    @Column
-    private String agencyPhone;
-
-    @ManyToOne
-    private City city;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<Route> routes;
+    @Enumerated
+    private FrequencyExactTimes exactTimes;
 
     @Override
     public String toString() {

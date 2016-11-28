@@ -3,11 +3,9 @@ package ro.gov.ithub.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
-import ro.gov.ithub.city.City;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.TimeZone;
+import java.util.List;
 
 /**
  * Created by Mihnea on 11/12/16.
@@ -16,36 +14,43 @@ import java.util.TimeZone;
 @NoArgsConstructor
 @Entity
 @Table
-public class Agency implements BaseEntity {
-
-    static final String TABLE_NAME = "AGENCY";
+public class Route implements BaseEntity {
 
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Access(AccessType.PROPERTY)
-    private Integer agencyId;
-
-    @Column(nullable = false)
-    private String agencyName;
-
-    @Column(nullable = false)
-    private String agencyUrl;
-
-    @Column(nullable = false)
-    private TimeZone agencyTimezone;
-
-    @Column
-    private String agencyLang;
-
-    @Column
-    private String agencyPhone;
+    private Integer routeId;
 
     @ManyToOne
-    private City city;
+    private Agency agency;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<Route> routes;
+    @Column(nullable = false)
+    private String routeShortName;
+
+    @Column(nullable = false)
+    private String routeLongName;
+
+    @Column
+    private String routeDesc;
+
+    // TODO what are the route types ?
+    @Column
+    private String routeType;
+
+    @Column
+    private String routeUrl;
+
+    @Column
+    private String routeColor;
+
+    @Column
+    private String routeTextColor;
+
+    @OneToMany
+    private List<FareRule> fareRules;
+
+//    TODO trips
 
     @Override
     public String toString() {

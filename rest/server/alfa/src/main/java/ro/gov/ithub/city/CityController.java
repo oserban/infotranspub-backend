@@ -5,10 +5,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import ro.gov.ithub.entity.Agency;
 import ro.gov.ithub.base.BaseController;
+import ro.gov.ithub.entity.Agency;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
 
 @RestController
 public class CityController extends BaseController<City> {
@@ -27,7 +28,7 @@ public class CityController extends BaseController<City> {
 	}
 
 	@RequestMapping(value = "/citylist/{cityName}/agencylist", method = RequestMethod.GET)
-	public List<Agency> getAgenciesForCity(@PathVariable("cityName") final String cityName) {
+	public Set<Agency> getAgenciesForCity(@PathVariable("cityName") final String cityName) {
 		return cityService.getCityWithAgencies(cityName).getAgencies();
 	}
 }

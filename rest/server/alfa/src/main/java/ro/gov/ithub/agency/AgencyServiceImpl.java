@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import ro.gov.ithub.city.City;
 import ro.gov.ithub.entity.Agency;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class AgencyServiceImpl implements AgencyService {
@@ -14,9 +14,9 @@ public class AgencyServiceImpl implements AgencyService {
     @Autowired
     private AgencyRepository agencyRepository;
 
-    private static final List<Agency> ALL_AGENCIES;
+    private static final Set<Agency> ALL_AGENCIES;
     static {
-        ALL_AGENCIES = new ArrayList<>();
+        ALL_AGENCIES = new HashSet<>();
         ALL_AGENCIES.add(createAgency(1, "RATUC", "ro_cj_cluj"));
         ALL_AGENCIES.add(createAgency(2, "TFG", "ro_cj_cluj"));
         ALL_AGENCIES.add(createAgency(3, "RATB", "ro_cj_cluj"));
@@ -39,16 +39,16 @@ public class AgencyServiceImpl implements AgencyService {
     }
 
     @Override
-    public List<Agency> getAllAgencies() {
+    public Set<Agency> getAllAgencies() {
         if(ALL_AGENCIES==null) {
-            return new ArrayList<>();
+            return new HashSet<>();
         }
         return ALL_AGENCIES;
     }
 
     @Override
-    public List<Agency> getAgenciesForCity(City city) {
-        ArrayList<Agency> agenciesForCity = new ArrayList<>();
+    public Set<Agency> getAgenciesForCity(City city) {
+        Set<Agency> agenciesForCity = new HashSet<>();
 
         for (Agency a : ALL_AGENCIES) {
             City cityOfAgency = a.getCity();
@@ -61,8 +61,8 @@ public class AgencyServiceImpl implements AgencyService {
     }
 
     @Override
-    public List<Agency> getAgenciesWithStationsForCity(City city) {
-        List<Agency> agenciesForCity = getAgenciesForCity(city);
+    public Set<Agency> getAgenciesWithStationsForCity(City city) {
+        Set<Agency> agenciesForCity = getAgenciesForCity(city);
 
 //        TODO initialize stationList
 

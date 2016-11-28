@@ -3,11 +3,9 @@ package ro.gov.ithub.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
-import ro.gov.ithub.city.City;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.TimeZone;
+import java.util.List;
 
 /**
  * Created by Mihnea on 11/12/16.
@@ -16,36 +14,29 @@ import java.util.TimeZone;
 @NoArgsConstructor
 @Entity
 @Table
-public class Agency implements BaseEntity {
-
-    static final String TABLE_NAME = "AGENCY";
+public class Shape implements BaseEntity {
 
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Access(AccessType.PROPERTY)
-    private Integer agencyId;
+    private Integer shapeId;
+
+//    TODO is there a value more proper than Double for these?
+    @Column(nullable = false)
+    private Double shapePtLat;
 
     @Column(nullable = false)
-    private String agencyName;
+    private Double shapePtLon;
 
     @Column(nullable = false)
-    private String agencyUrl;
-
-    @Column(nullable = false)
-    private TimeZone agencyTimezone;
+    private Double shapePtSequence;
 
     @Column
-    private String agencyLang;
+    private Double shapeDistTraveled;
 
-    @Column
-    private String agencyPhone;
-
-    @ManyToOne
-    private City city;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<Route> routes;
+    @ManyToMany
+    private List<Trip> trips;
 
     @Override
     public String toString() {
