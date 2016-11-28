@@ -2,18 +2,19 @@ package ro.gov.ithub.city;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ro.gov.ithub.agency.Agency;
 import ro.gov.ithub.base.BaseEntity;
-import ro.gov.ithub.station.Station;
+import ro.gov.ithub.entity.Agency;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table
 public class City implements BaseEntity {
+
+    static final String TABLE_NAME = "CITY";
 
     @Id
     @Column
@@ -25,14 +26,7 @@ public class City implements BaseEntity {
     private String cityUrl;
 
     @OneToMany
-    private List<Agency> agencies;
-
-    @OneToMany
-    private List<Station> stations;
-
-    public City(String cityNaturalId) {
-        this.cityUrl = cityNaturalId;
-    }
+    private Set<Agency> agencies;
 
     @Override
     public String toString() {

@@ -29,7 +29,7 @@ public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRep
 
     /**
      * See {@link EntityManager#getReference(Class, Object)}. Throws {@link EntityNotFoundException} if entity can't be found, when it's first accessed, e.g. by
-     * .getId().
+     * .getAgencyId().
      */
     @Override
     public T getReference(ID id) {
