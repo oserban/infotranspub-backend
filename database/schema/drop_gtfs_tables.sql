@@ -1,4 +1,4 @@
-/*
+﻿/*
  Order of creation 
 DirectionType, TransportType
 City, Agency
@@ -6,8 +6,22 @@ CityAgency
 Route
 Trip
 Stops
+StopTimes
+CalendarDates
+Calendar
+Currency
+FareAttributes
+Transfers
+FeedInfo
 
 Drop order
+FeedInfo
+Transfers
+FareAttributes
+Currency
+Calendar
+CalendarDates
+StopTimes
 Stops
 Trip
 Route
@@ -17,6 +31,41 @@ DirectionType, TransportType
 */
 
 -- The order of the drop is : first index, second table, third sequence
+DROP TABLE IF EXISTS T_FeedInfo;
+DROP SEQUENCE S_FeedInfo;
+
+
+
+DROP TABLE IF EXISTS T_Transfers;
+DROP SEQUENCE S_Transfers;
+
+
+
+DROP TABLE IF EXISTS T_FareAttributes;
+DROP SEQUENCE S_FareAttributes;
+
+
+
+DROP TABLE IF EXISTS T_Currency;
+DROP SEQUENCE S_Currency;
+
+
+
+DROP TABLE IF EXISTS T_Calendar;
+DROP SEQUENCE S_Calendar;
+
+
+
+DROP INDEX IF EXISTS I_CalendarDates;
+DROP TABLE IF EXISTS T_CalendarDates;
+DROP SEQUENCE S_CalendarDates;
+
+
+
+DROP INDEX IF EXISTS I_StopTimesSequence;
+DROP TABLE IF EXISTS T_StopTimes;
+DROP SEQUENCE S_StopTimes;
+
 
 DROP INDEX IF EXISTS I_Stops;
 DROP TABLE IF EXISTS T_Stops;
