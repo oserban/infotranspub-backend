@@ -6,3 +6,5 @@
 \i populate_route.sql
 \i populate_agency_route.sql
 \i populate_stop.sql
+\i populate_frequency.sql
+
