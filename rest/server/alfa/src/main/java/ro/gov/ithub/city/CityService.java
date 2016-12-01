@@ -9,5 +9,4 @@ public interface CityService {
 
     City getCityWithAgencies(String cityName);
 
-    List<City> findAllCitiesFromDb();
 }

@@ -69,9 +69,8 @@ public class Stop implements BaseEntity {
                                                 updatable = false ) })
     private Set<Stop> transferStops;
 
+    @MapsId(value = Stoptime.FIELD_STOP_ID)
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = Stop.COLUMN_STOP_ID,
-            referencedColumnName = Stoptime.COLUMN_STOP_ID)
     private Stoptime stoptime;
 
     @Enumerated

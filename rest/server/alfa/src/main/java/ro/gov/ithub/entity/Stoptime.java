@@ -3,9 +3,14 @@ package ro.gov.ithub.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
+import ro.gov.ithub.entity.util.StoptimeBoardingType;
+import ro.gov.ithub.entity.util.StoptimePk;
+import ro.gov.ithub.entity.util.StoptimeTimepoint;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Mihnea on 11/12/16.
@@ -13,20 +18,22 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @Entity
-@Table
+@Table(name = Stoptime.TABLE_NAME,
+        uniqueConstraints =
+        @UniqueConstraint(columnNames = {
+                Stoptime.COLUMN_STOP_ID,
+                Stoptime.COLUMN_TRIP_ID})
+)
 public class Stoptime implements BaseEntity {
 
     static final String TABLE_NAME = "STOPTIME";
     static final String COLUMN_TRIP_ID = "TRIP_ID";
     static final String COLUMN_STOP_ID = "STOP_ID";
+    static final String FIELD_TRIP_ID = "tripId";
+    static final String FIELD_STOP_ID = "stopId";
 
-    @Id
-    @Column
-    @Access(AccessType.PROPERTY)
-    private Integer stopId;
-
-    @ManyToOne
-    private Trip trips;
+    @EmbeddedId
+    private StoptimePk stoptimePk;
 
     @Column(nullable = false)
     private Date arrivalTime;
@@ -34,18 +41,24 @@ public class Stoptime implements BaseEntity {
     @Column(nullable = false)
     private Date departureTime;
 
-    @MapsId
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    private Stop stop;
+    @Min(value = 1)
+    @Column(nullable = false)
+    private Integer stopSequence;
 
-//    TODO stop IMPL [1]
-//TODO   clarify the rest of the parameters
-//    stopSequence [1]
-//    stopHeadsign [0..1]
-//    pickupType [0..1]
-//    dropOffType [0..1]
-//    shapeDistTraveled [0..1]
+    @Column
+    private String stopHeadsign;
+
+    @Enumerated
+    private StoptimeBoardingType pickupType = StoptimeBoardingType.NONE_AVAILABLE;
+
+    @Enumerated
+    private StoptimeBoardingType dropOffType = StoptimeBoardingType.NONE_AVAILABLE;
+
+    @Column
+    private Double shapeDistTraveled;
+
+    @Column
+    private StoptimeTimepoint timepoint = StoptimeTimepoint.EXACT;
 
     @Override
     public String toString() {
