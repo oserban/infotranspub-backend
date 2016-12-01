@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 jarName="data-extractor-*-jar-with-dependencies.jar"
-mainClass="someclass"
+mainClass="ro.gov.ithub.infotranspub.extraction.Main"
 
 jarFile=$( find . -name ${jarName} | tail -n 1 )
 if [[ -z ${jarFile} && -d target ]]; then

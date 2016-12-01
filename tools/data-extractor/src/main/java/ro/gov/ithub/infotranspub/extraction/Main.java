@@ -5,6 +5,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ro.gov.ithub.infotranspub.extraction.data.Agency;
 import ro.gov.ithub.infotranspub.extraction.data.Line;
 import ro.gov.ithub.infotranspub.extraction.data.LineType;
 import ro.gov.ithub.infotranspub.extraction.extractor.CrawlerFactory;
@@ -45,6 +46,8 @@ public class Main {
             dataFixer = new GpsDataFixer();
         }
 
+        Agency agency = crawler.getAgency();
+
         for (LineType type : LineType.values()) {
             List<String> lineIds = crawler.parseLinesIds(type);
             logger.info(type + " = " + lineIds);
@@ -70,7 +73,7 @@ public class Main {
                 }
 
                 if (dataFixer != null && lineInformation != null) {
-                    dataFixer.fixLine(lineInformation);
+                    dataFixer.fixLine(lineInformation, agency.getCity());
                     fileCache.write(lineInformation);
                 }
             }

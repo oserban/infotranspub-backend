@@ -176,6 +176,10 @@
         "stopCode": "2593",
         "name": "SOSEAUA COLENTINA",
         "location": "STR. DNA. GHICA",
+        "gpsCoordinates": {
+          "latitude": 44.462987,
+          "longitude": 26.1317945
+        },
         "scheduleTable": {
           "sunday": [
             "5:27",
