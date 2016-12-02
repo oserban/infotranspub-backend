@@ -26,16 +26,40 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public City getCityWithAgencies(String cityName) {
+    public City getCityWithAgencies(String cityUrl) {
 
-        for (City c: cityRepository.findAll()) {
-            if(StringUtils.equalsIgnoreCase(cityName, c.getCityUrl())) {
+        City result = cityRepository.findCityByCityUrl(cityUrl);
+        if (result == null) {
+            System.out.println("FIND NOT WORKING");
+        } else {
+            return result;
+        }
+
+        result = cityRepository.getCityByCityUrl(cityUrl);
+        if (result == null) {
+            System.out.println("GET NOT WORKING");
+        } else {
+            return result;
+        }
+
+
+        for (City c : cityRepository.findAll()) {
+            if (StringUtils.equalsIgnoreCase(cityUrl, c.getCityUrl())) {
                 c.setAgencies(agencyService.getAgenciesForCity(c));
                 return c;
             }
         }
 
         return null;
+    }
+
+    @Override
+    public void saveOrUpdateCity(City city) {
+        if (city.getCityId() == null) {
+            this.cityRepository.save(city);
+        } else {
+            this.cityRepository.update(city);
+        }
     }
 
 }

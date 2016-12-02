@@ -31,6 +31,12 @@ public class CityController extends BaseController<City> {
 		return cityService.getCityWithAgencies(cityName);
 	}
 
+	@RequestMapping(
+			value = { "/city/{cityName}", "/oras/{cityName}" },
+			method = RequestMethod.POST)
+	public void saveOrUpdateCity(@PathVariable("cityName") final City cityName) {
+		cityService.saveOrUpdateCity(cityName);
+	}
 
 
 	@RequestMapping(

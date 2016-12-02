@@ -9,4 +9,5 @@ public interface CityService {
 
     City getCityWithAgencies(String cityName);
 
+    void saveOrUpdateCity(City city);
 }

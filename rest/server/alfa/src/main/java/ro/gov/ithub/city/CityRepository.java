@@ -7,4 +7,8 @@ import ro.gov.ithub.base.BaseRepository;
  */
 public interface CityRepository extends BaseRepository<City, Integer> {
 
+    City findCityByCityUrl(String url);
+
+    City getCityByCityUrl(String url);
+
 }
