@@ -3,7 +3,6 @@ package ro.gov.ithub.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
-import ro.gov.ithub.city.City;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -19,6 +18,7 @@ import java.util.TimeZone;
 public class Agency implements BaseEntity {
 
     static final String TABLE_NAME = "AGENCY";
+    public static final String COLUMN_CITY_ID = "CITY_ID";
 
     @Id
     @Column
@@ -40,9 +40,6 @@ public class Agency implements BaseEntity {
 
     @Column
     private String agencyPhone;
-
-    @ManyToOne
-    private City city;
 
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Route> routes;

@@ -17,18 +17,26 @@ public class CityController extends BaseController<City> {
 	@Autowired
 	private CityService cityService;
 
-	@RequestMapping(value = "/citylist", method = RequestMethod.GET)
+	@RequestMapping(
+			value = { "/citylist", "/listaorase" },
+			method = RequestMethod.GET)
 	public Collection<City> getAllCities() {
 		return cityService.getCities();
 	}
 
-	@RequestMapping(value = "/citylist/{cityName}", method = RequestMethod.GET)
+	@RequestMapping(
+			value = { "/city/{cityName}", "/oras/{cityName}" },
+			method = RequestMethod.GET)
 	public City getCity(@PathVariable("cityName") final String cityName) {
 		return cityService.getCityWithAgencies(cityName);
 	}
 
-	@RequestMapping(value = "/citylist/{cityName}/agencylist", method = RequestMethod.GET)
-	public Set<Agency> getAgenciesForCity(@PathVariable("cityName") final String cityName) {
-		return cityService.getCityWithAgencies(cityName).getAgencies();
+
+
+	@RequestMapping(
+			value = { "/city/{cityName}/agencylist", "/oras/{cityName}/listaregii/" },
+			method = RequestMethod.GET)
+	public City getAgenciesForCity(@PathVariable("cityName") final String cityName) {
+		return cityService.getCityWithAgencies(cityName);
 	}
 }
