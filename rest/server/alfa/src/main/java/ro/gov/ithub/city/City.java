@@ -26,6 +26,7 @@ public class City implements BaseEntity {
     private String cityUrl;
 
     @OneToMany
+    @JoinColumn(name = Agency.COLUMN_CITY_ID)
     private Set<Agency> agencies;
 
     @Override
