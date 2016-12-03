@@ -1,19 +1,18 @@
 package ro.gov.ithub.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
 
 import javax.persistence.*;
 import java.util.Date;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
 @Table
+@EqualsAndHashCode(of={"stopId"})
 public class Stoptime implements BaseEntity {
 
     static final String TABLE_NAME = "STOPTIME";

@@ -1,6 +1,7 @@
 package ro.gov.ithub.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
 
@@ -9,15 +10,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
 @Table
+@EqualsAndHashCode(of={"serviceId"})
 public class Calendar implements BaseEntity {
-
     static final String TABLE_NAME = "CALENDAR";
 
     @Id

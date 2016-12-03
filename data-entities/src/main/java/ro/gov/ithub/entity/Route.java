@@ -1,19 +1,20 @@
 package ro.gov.ithub.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import ro.gov.ithub.base.BaseEntity;
 
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
 @Table
+@EqualsAndHashCode(of = {"routeId", "routeShortName"})
+@ToString(exclude="agency")
 public class Route implements BaseEntity {
 
     @Id
@@ -34,7 +35,7 @@ public class Route implements BaseEntity {
     @Column
     private String routeDesc;
 
-    // TODO what are the route types ?
+    // TODO create an enum according to the route types
     @Column
     private String routeType;
 

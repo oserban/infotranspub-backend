@@ -1,21 +1,19 @@
 package ro.gov.ithub.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.util.FrequencyExactTimes;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
 @Table
+@EqualsAndHashCode(of = {"frequencyId", "tripId"})
 public class Frequency implements BaseEntity {
 
     @Id

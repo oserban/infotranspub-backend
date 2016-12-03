@@ -1,6 +1,7 @@
 package ro.gov.ithub.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.util.StopLocationType;
@@ -9,13 +10,11 @@ import ro.gov.ithub.entity.util.WheelchairAccessible;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
 @Table
+@EqualsAndHashCode(of={"stopId", "stopCode"})
 public class Stop implements BaseEntity {
 
     static final String TABLE_NAME = "STOP";
