@@ -1,19 +1,18 @@
 package ro.gov.ithub.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.util.TransferType;
 
 import javax.persistence.*;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
 @Table
+@EqualsAndHashCode(of={"toStopId", "fromStopId"})
 public class Transfer implements BaseEntity {
 
     static final String TABLE_NAME = "TRANSFER";

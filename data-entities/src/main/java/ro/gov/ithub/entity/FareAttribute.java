@@ -1,6 +1,7 @@
 package ro.gov.ithub.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.util.FareAttributePaymentMethod;
@@ -8,13 +9,11 @@ import ro.gov.ithub.entity.util.FareAttributeTransfers;
 
 import javax.persistence.*;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
 @Table
+@EqualsAndHashCode(of={"fareId"})
 public class FareAttribute implements BaseEntity {
 
     @Id

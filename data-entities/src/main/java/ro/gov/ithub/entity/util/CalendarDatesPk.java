@@ -7,9 +7,6 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by Mihnea on 11/26/16.
- */
 @Embeddable
 @Access(AccessType.FIELD)
 public class CalendarDatesPk implements Serializable {

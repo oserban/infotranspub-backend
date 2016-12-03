@@ -1,7 +1,9 @@
 package ro.gov.ithub.city;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.Agency;
 
@@ -12,6 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table
+@EqualsAndHashCode(of={"cityId"})
+@ToString(exclude="agencies")
 public class City implements BaseEntity {
 
     static final String TABLE_NAME = "CITY";
