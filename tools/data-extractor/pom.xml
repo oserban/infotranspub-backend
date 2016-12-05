@@ -52,11 +52,7 @@
 
     <dependencies>
         <!-- module dependencies -->
-        <dependency>
-            <groupId>ro.gov.it.hub.data</groupId>
-            <artifactId>data-entities</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+        <!-- new data entities go here -->
         <!-- crawling -->
         <dependency>
             <groupId>org.jsoup</groupId>
