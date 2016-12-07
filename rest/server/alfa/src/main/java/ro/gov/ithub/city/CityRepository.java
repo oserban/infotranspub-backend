@@ -9,6 +9,4 @@ public interface CityRepository extends BaseRepository<City, Integer> {
 
     City findCityByCityUrl(String url);
 
-    City getCityByCityUrl(String url);
-
 }
