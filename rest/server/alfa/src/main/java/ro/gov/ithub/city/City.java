@@ -22,8 +22,14 @@ public class City implements BaseEntity {
     @Access(AccessType.PROPERTY)
     private Integer cityId;
 
-    @Column(nullable = false, unique = true)
+    @Column
     private String cityUrl;
+
+    @Column(nullable = false, unique = true)
+    private String cityShortName;
+
+    @Column(nullable = false)
+    private String cityName;
 
     @OneToMany
     @JoinColumn(name = Agency.COLUMN_CITY_ID)
