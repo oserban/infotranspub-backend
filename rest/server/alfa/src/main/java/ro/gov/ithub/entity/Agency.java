@@ -6,7 +6,6 @@ import ro.gov.ithub.base.BaseEntity;
 
 import javax.persistence.*;
 import java.util.Set;
-import java.util.TimeZone;
 
 /**
  * Created by Mihnea on 11/12/16.
@@ -33,7 +32,7 @@ public class Agency implements BaseEntity {
     private String agencyUrl;
 
     @Column(nullable = false)
-    private TimeZone agencyTimezone;
+    private String agencyTimezone;
 
     @Column
     private String agencyLang;
