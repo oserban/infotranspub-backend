@@ -8,7 +8,7 @@ import java.util.Collection;
  */
 public abstract class BaseServiceImpl<E extends BaseEntity, I extends Serializable> implements BaseService<E, I> {
 
-    private BaseRepository baseRepository;
+    protected BaseRepository baseRepository;
 
     protected BaseServiceImpl(BaseRepository baseRepo) {
         this.baseRepository = baseRepo;

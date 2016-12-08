@@ -30,22 +30,22 @@ public class CityController extends BaseController<City> {
 
     @RequestMapping(value = {CITIES_EN}, method = GET)
     public Collection<City> getAllCities() {
-        return cityService.getCities();
+        return cityService.findAll();
     }
 
     @RequestMapping(value = {CITY_EN_BY_NAME}, method = GET)
     public City getCity(@PathVariable("cityName") final String cityName) {
-        return cityService.getCityWithAgencies(cityName);
+        return cityService.findByCityName(cityName);
     }
 
     @RequestMapping(value = {CITY_EN}, method = POST)
     public void saveOrUpdateCity(@RequestBody final City city) {
-        cityService.saveCity(city);
+        cityService.saveOrUpdate(city);
     }
 
     @RequestMapping(value = {CITY_EN_AGENCIES}, method = GET)
     public City getAgenciesForCity(@PathVariable("cityName") final String cityName) {
-        return cityService.getCityWithAgencies(cityName);
+        return cityService.findByCityName(cityName);
     }
 
     @RequestMapping(value = {CITY_EN}, method = DELETE)

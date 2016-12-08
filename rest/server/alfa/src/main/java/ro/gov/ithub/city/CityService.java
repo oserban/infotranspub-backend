@@ -1,14 +1,10 @@
 package ro.gov.ithub.city;
 
-import java.util.Collection;
+import ro.gov.ithub.base.BaseService;
 
-public interface CityService {
+public interface CityService extends BaseService<City, Integer> {
 
-    Collection<City> getCities();
-
-    City getCityWithAgencies(String cityName);
-
-    void saveCity(City city);
+    City findByCityName(String cityName);
 
     void delete(City city);
 }
