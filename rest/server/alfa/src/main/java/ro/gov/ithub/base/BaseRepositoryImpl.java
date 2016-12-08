@@ -4,16 +4,15 @@ package ro.gov.ithub.base;
  * Created by Mihnea on 11/23/16.
  */
 
-import java.io.Serializable;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-
 import org.hibernate.Session;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
-public class BaseRepositoryImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import java.io.Serializable;
+
+public class BaseRepositoryImpl<T extends BaseEntity, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
 
     private final EntityManager entityManager;
     private final JpaEntityInformation<T, ID> entityInformation;
