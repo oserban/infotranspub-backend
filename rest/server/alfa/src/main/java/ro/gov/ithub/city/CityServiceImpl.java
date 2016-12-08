@@ -21,17 +21,18 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public City getCityWithAgencies(String cityUrl) {
-        return cityRepository.findCityByCityUrl(cityUrl);
+    public City getCityWithAgencies(String cityShortName) {
+        return cityRepository.findCityByCityShortName(cityShortName);
     }
 
     @Override
-    public void saveOrUpdateCity(City city) {
-        if (city.getCityId() == null) {
-            this.cityRepository.save(city);
-        } else {
-            this.cityRepository.update(city);
-        }
+    public void saveCity(City city) {
+        this.cityRepository.save(city);
+    }
+
+    @Override
+    public void delete(City city) {
+        this.cityRepository.delete(city);
     }
 
 }

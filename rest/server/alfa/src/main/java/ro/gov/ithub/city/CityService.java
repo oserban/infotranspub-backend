@@ -1,7 +1,6 @@
 package ro.gov.ithub.city;
 
 import java.util.Collection;
-import java.util.List;
 
 public interface CityService {
 
@@ -9,5 +8,7 @@ public interface CityService {
 
     City getCityWithAgencies(String cityName);
 
-    void saveOrUpdateCity(City city);
+    void saveCity(City city);
+
+    void delete(City city);
 }
