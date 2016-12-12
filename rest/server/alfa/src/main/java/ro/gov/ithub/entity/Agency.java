@@ -23,22 +23,25 @@ public class Agency implements BaseEntity {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Access(AccessType.PROPERTY)
-    private Integer agencyId;
+    private Integer id;
 
     @Column(nullable = false)
-    private String agencyName;
+    private String name;
 
     @Column(nullable = false)
-    private String agencyUrl;
+    private String url;
 
     @Column(nullable = false)
-    private String agencyTimezone;
+    private String timezone;
 
     @Column
-    private String agencyLang;
+    private String lang;
 
     @Column
-    private String agencyPhone;
+    private String phone;
+
+    @Column
+    private String email;
 
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Route> routes;
