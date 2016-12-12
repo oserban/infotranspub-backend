@@ -2,6 +2,7 @@ package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntityWithId;
 
 import javax.persistence.*;
@@ -32,14 +33,16 @@ public class Agency extends BaseEntityWithId {
     private String phone;
 
     @Column
+    private String fareUrl;
+
+    @Column
     private String email;
 
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Route> routes;
 
-//    TODO try ToStringBuilder
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }
