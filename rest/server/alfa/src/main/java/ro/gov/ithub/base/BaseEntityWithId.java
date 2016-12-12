@@ -1,13 +1,15 @@
 package ro.gov.ithub.base;
 
 import com.google.gson.Gson;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Data
 public class BaseEntityWithId implements Serializable {
 
-    private static final Gson GSON = new Gson();
+    protected static final Gson GSON = new Gson();
 
     @Id
     @Column
