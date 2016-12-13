@@ -1,17 +1,19 @@
 package ro.gov.ithub.base;
 
+import com.google.gson.Gson;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-@MappedSuperclass
-public class BaseEntityWithId implements BaseEntity, Serializable {
+public class BaseEntityWithId implements Serializable {
+
+    protected static final Gson GSON = new Gson();
 
     @Id
-    @Column(updatable = false, nullable = false)
+    @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Access(value = AccessType.PROPERTY)
+    @Access(AccessType.PROPERTY)
     private Integer id;
 }
