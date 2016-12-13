@@ -32,6 +32,9 @@ public class Agency extends BaseEntityWithId {
     private String phone;
 
     @Column
+    private String fareUrl;
+    
+    @Column
     private String email;
 
     @OneToMany(fetch = FetchType.EAGER)
