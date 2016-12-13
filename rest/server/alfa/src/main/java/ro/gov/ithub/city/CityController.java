@@ -34,7 +34,7 @@ public class CityController extends BaseController<City> {
     }
 
     @RequestMapping(value = {CITY_EN_BY_NAME}, method = GET)
-    public City findCityByName(@PathVariable("cityName") final String cityName) {
+    public City getCity(@PathVariable("cityName") final String cityName) {
         return cityService.findByCityName(cityName);
     }
 
@@ -49,7 +49,7 @@ public class CityController extends BaseController<City> {
     }
 
     @RequestMapping(value = {CITY_EN}, method = DELETE)
-    public void deleteCity(@RequestBody final City city) {
+    public void delete(@RequestBody final City city) {
         cityService.delete(city);
     }
 }

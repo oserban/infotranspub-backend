@@ -16,7 +16,7 @@ public class AgencyController extends BaseController<Agency> {
 	private static final String AGENCIES_RO = "/regii";
 	private static final String AGENCY_EN = "/agency";
 	private static final String AGENCY_RO = "/regie";
-	private static final String AGENCY_EN_BY_ID = "/agency/{id}";
+	private static final String AGENCY_EN_BY_ID = "/agency/{agencyId}";
 	private static final String AGENCY_RO_BY_ID = "/regie/{idRegie}";
 	
 	@Autowired
@@ -28,7 +28,7 @@ public class AgencyController extends BaseController<Agency> {
 	}
 
 	@RequestMapping(value = {AGENCY_EN_BY_ID}, method = GET)
-	public Agency findAgencyById(@PathVariable("id") final int agencyId) {
+	public Agency getAgency(@PathVariable("agencyId") final int agencyId) {
 		return agencyService.findById(agencyId);
 	}
 
@@ -38,7 +38,7 @@ public class AgencyController extends BaseController<Agency> {
 	}
 
 	@RequestMapping(value = {AGENCY_EN}, method = DELETE)
-	public void deleteAgency(@RequestBody final Agency agency) {
-		agencyService.delete(agency.getId());
+	public void delete(@RequestBody final Agency agency) {
+		agencyService.delete(agency.getAgencyId());
 	}
 }
