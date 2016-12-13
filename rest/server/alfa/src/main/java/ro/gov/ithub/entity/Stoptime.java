@@ -2,6 +2,7 @@ package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.util.StoptimeBoardingType;
 import ro.gov.ithub.entity.util.StoptimePk;
@@ -10,11 +11,7 @@ import ro.gov.ithub.entity.util.StoptimeTimepoint;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.util.Date;
-import java.util.Set;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
@@ -62,6 +59,6 @@ public class Stoptime implements BaseEntity {
 
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }
