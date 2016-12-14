@@ -2,15 +2,14 @@ package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.util.FareAttributePaymentMethod;
 import ro.gov.ithub.entity.util.FareAttributeTransfers;
 
 import javax.persistence.*;
+import java.util.Currency;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
@@ -29,9 +28,8 @@ public class FareAttribute implements BaseEntity {
     @Column(nullable = false)
     private Double price;
 
-//    TODO use java.util.Currency
-    @Column(nullable = false)
-    private String currencyType;
+    @Embedded
+    private String currency;
 
     @Enumerated
     private FareAttributePaymentMethod paymentMethod;
@@ -44,6 +42,14 @@ public class FareAttribute implements BaseEntity {
 
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
+    }
+
+    public Currency getCurrency() {
+        return Currency.getInstance(currency);
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency.getCurrencyCode();
     }
 }

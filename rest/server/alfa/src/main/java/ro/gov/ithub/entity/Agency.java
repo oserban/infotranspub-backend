@@ -2,16 +2,12 @@ package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntity;
-import ro.gov.ithub.city.City;
 
 import javax.persistence.*;
 import java.util.Set;
-import java.util.TimeZone;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
@@ -19,6 +15,7 @@ import java.util.TimeZone;
 public class Agency implements BaseEntity {
 
     static final String TABLE_NAME = "AGENCY";
+    public static final String COLUMN_CITY_ID = "CITY_ID";
 
     @Id
     @Column
@@ -33,22 +30,25 @@ public class Agency implements BaseEntity {
     private String agencyUrl;
 
     @Column(nullable = false)
-    private TimeZone agencyTimezone;
+    private String agencyTimezone;
 
     @Column
     private String agencyLang;
 
     @Column
-    private String agencyPhone;
+    private String fareUrl;
+    
+    @Column
+    private String agencyEmail;
 
-    @ManyToOne
-    private City city;
+    @Column
+    private String agencyPhone;
 
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Route> routes;
 
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }

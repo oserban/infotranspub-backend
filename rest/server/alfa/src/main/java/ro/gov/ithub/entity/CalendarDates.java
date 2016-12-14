@@ -2,15 +2,13 @@ package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.util.CalendarDatesPk;
 import ro.gov.ithub.entity.util.ExceptionType;
 
 import javax.persistence.*;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
@@ -20,7 +18,7 @@ public class CalendarDates implements BaseEntity {
     @EmbeddedId
     private CalendarDatesPk calendarDatesPk;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(value = EnumType.ORDINAL)
     private ExceptionType exceptionType;
 
     @ManyToOne
@@ -28,6 +26,6 @@ public class CalendarDates implements BaseEntity {
 
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }

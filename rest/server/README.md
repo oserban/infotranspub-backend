@@ -28,3 +28,5 @@ The necessary files will be produces in the build folder, which in this example 
 
 An API test call can be made to:
  http://localhost:8080/api/cities
+ 
+Swagger: http://localhost:9000/swagger-ui.html

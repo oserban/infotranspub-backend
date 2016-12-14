@@ -2,6 +2,7 @@ package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.util.TripBikesAllowed;
 import ro.gov.ithub.entity.util.TripDirection;
@@ -10,9 +11,6 @@ import ro.gov.ithub.entity.util.WheelchairAccessible;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
@@ -31,9 +29,8 @@ public class Trip implements BaseEntity {
     @Column(nullable = false)
     private Route route;
 
-//    TODO can this be commented out?
-//    @Column(nullable = false)
-//    private Integer serviceId;
+    @Column(nullable = false)
+    private Integer serviceId;
 
     @Column
     private String tripHeadsign;
@@ -44,7 +41,11 @@ public class Trip implements BaseEntity {
     @Enumerated
     private TripDirection directionId;
 
-//    TODO block IMPL
+    @Column
+    private Integer blockId;
+
+    @Column
+    private Integer shapeId;
 
     @ManyToMany
     private Set<Shape> shapes;
@@ -69,6 +70,6 @@ public class Trip implements BaseEntity {
 
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }

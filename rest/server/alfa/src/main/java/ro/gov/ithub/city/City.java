@@ -2,6 +2,7 @@ package ro.gov.ithub.city;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.Agency;
 
@@ -22,15 +23,22 @@ public class City implements BaseEntity {
     @Access(AccessType.PROPERTY)
     private Integer cityId;
 
-    @Column(nullable = false, unique = true)
+    @Column
     private String cityUrl;
 
+    @Column(nullable = false, unique = true)
+    private String cityShortName;
+
+    @Column(nullable = false)
+    private String cityName;
+
     @OneToMany
+    @JoinColumn(name = Agency.COLUMN_CITY_ID)
     private Set<Agency> agencies;
 
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

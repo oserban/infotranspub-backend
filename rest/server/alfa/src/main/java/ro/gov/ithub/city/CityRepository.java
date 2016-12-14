@@ -7,4 +7,6 @@ import ro.gov.ithub.base.BaseRepository;
  */
 public interface CityRepository extends BaseRepository<City, Integer> {
 
+    City findCityByCityShortName(String shortName);
+
 }

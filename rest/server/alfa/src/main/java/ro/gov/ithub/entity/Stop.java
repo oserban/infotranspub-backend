@@ -2,6 +2,7 @@ package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntity;
 import ro.gov.ithub.entity.util.StopLocationType;
 import ro.gov.ithub.entity.util.WheelchairAccessible;
@@ -9,9 +10,6 @@ import ro.gov.ithub.entity.util.WheelchairAccessible;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
@@ -69,9 +67,8 @@ public class Stop implements BaseEntity {
                                                 updatable = false ) })
     private Set<Stop> transferStops;
 
+    @MapsId(value = Stoptime.FIELD_STOP_ID)
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = Stop.COLUMN_STOP_ID,
-            referencedColumnName = Stoptime.COLUMN_STOP_ID)
     private Stoptime stoptime;
 
     @Enumerated
@@ -79,6 +76,6 @@ public class Stop implements BaseEntity {
 
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }
