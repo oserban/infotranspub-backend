@@ -2,14 +2,13 @@ package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntity;
+import ro.gov.ithub.entity.util.RouteType;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
@@ -34,9 +33,8 @@ public class Route implements BaseEntity {
     @Column
     private String routeDesc;
 
-    // TODO what are the route types ?
-    @Column
-    private String routeType;
+    @Enumerated
+    private RouteType routeType;
 
     @Column
     private String routeUrl;
@@ -47,13 +45,16 @@ public class Route implements BaseEntity {
     @Column
     private String routeTextColor;
 
+    //    TODO ensure correctness
     @OneToMany
-    private List<FareRule> fareRules;
+    private Set<FareRule> fareRules;
 
-//    TODO trips
+    //    TODO ensure correctness
+    @OneToMany
+    private Set<Trip> trips;
 
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }

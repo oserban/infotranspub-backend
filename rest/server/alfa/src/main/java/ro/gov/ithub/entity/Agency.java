@@ -2,14 +2,12 @@ package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntity;
 
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
@@ -38,6 +36,12 @@ public class Agency implements BaseEntity {
     private String agencyLang;
 
     @Column
+    private String fareUrl;
+    
+    @Column
+    private String agencyEmail;
+
+    @Column
     private String agencyPhone;
 
     @OneToMany(fetch = FetchType.EAGER)
@@ -45,6 +49,6 @@ public class Agency implements BaseEntity {
 
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }

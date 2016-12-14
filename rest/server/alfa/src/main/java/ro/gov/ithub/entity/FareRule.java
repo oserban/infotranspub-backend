@@ -2,14 +2,12 @@ package ro.gov.ithub.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ro.gov.ithub.base.BaseEntity;
 
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by Mihnea on 11/12/16.
- */
 @Data
 @NoArgsConstructor
 @Entity
@@ -17,6 +15,9 @@ import java.util.List;
 public class FareRule implements BaseEntity {
 
     static final String TABLE_NAME = "FARE_RULE";
+    static final String COLUMN_ORIGIN_ID = "ORIGIN_ID";
+    static final String COLUMN_DESTINATION_ID = "DESTINATION_ID";
+    static final String COLUMN_CONTAINS_ID = "CONTAINS_ID";
 
     @Id
     @Column
@@ -27,21 +28,23 @@ public class FareRule implements BaseEntity {
     @ManyToOne
     private Route route;
 
-//    TODO map these to stops
-    @Column
-    private Integer originId;
-    @Column
-    private Integer destinationId;
+    @ManyToOne
+    @JoinColumn(name = FareRule.COLUMN_ORIGIN_ID)
+    private Stop origin;
 
-//    TODO clarify zones
-    @Column
-    private Integer containsId;
+    @ManyToOne
+    @JoinColumn(name = FareRule.COLUMN_DESTINATION_ID)
+    private Stop destination;
+
+    @ManyToOne
+    @JoinColumn(name = FareRule.COLUMN_CONTAINS_ID)
+    private Stop contains;
 
     @OneToMany
     private List<FareAttribute> fareAttributes;
 
     @Override
     public String toString() {
-        return GSON.toJson(this);
+        return ToStringBuilder.reflectionToString(this);
     }
 }
